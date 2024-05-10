@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpRespons
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from authapp.forms import RegistrationForm
+from authapp.forms import RegistrationForm, LoginForm
 from django.contrib import auth
 from django.views.decorators.cache import cache_page
 from mainapp.views import index
@@ -38,20 +38,30 @@ def registration(request):
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        print(username, password)
-        # аутентификация пользователя
-        # аутентификация пользователя
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            print(user)
-            auth.login(request, user)
-        else:
-            print('asfsdf')
-            return JsonResponse({'error': 'Неверный логин или пароль'})
-        # return redirect(reverse('mainapp:index'))
-        return JsonResponse({'message': 'ok'})
+        print(email, password)
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = auth.authenticate(email=email, password=password)
+            if user:
+                auth.login(request, user)
+                # return redirect(reverse('mainapp:index'))
+                return JsonResponse({'message': 'ok'})
+            else:
+                return JsonResponse({'error': 'Неверный логин или пароль'})
+                                
+        # # аутентификация пользователя
+        # # аутентификация пользователя
+        # user = auth.authenticate(password=password, email=email)
+        # if user is not None:
+        #     print(user)
+        #     auth.login(request, user)
+        # else:
+        #     print('asfsdf')
+        #     return JsonResponse({'error': 'Неверный логин или пароль'})
+        # # return redirect(reverse('mainapp:index'))
+        # return JsonResponse({'message': 'ok'})
     else:
         return render(request, 'authapp/registr.html')
 

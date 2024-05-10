@@ -84,7 +84,7 @@ $(document).ready(function () {
         var formData = {
             csrfmiddlewaretoken: csrftoken, // Сервер Django тправит код 403 на запрос если не отправить csrf токен
             password: $('#password-login').val(),
-            username: $('#username-login').val(),
+            email: $('#username-login').val(),
         };
         console.log(formData);
 

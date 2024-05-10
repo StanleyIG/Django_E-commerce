@@ -28,7 +28,7 @@ Authentication
 			<form action="{% url 'authapp:login' %}" class="form" id="form2" method="post">
 				{% csrf_token %}
 				<h2 class="form__title">Sign In</h2>
-				<input type="text" placeholder="username" class="input" id="username-login" />
+				<input type="email" placeholder="email" class="input" id="username-login" />
 				<input type="password" placeholder="password" class="input" id="password-login" />
 				<a href="#" class="link">Forgot your password?</a>
 				<button class="btn">Sign In</button>
