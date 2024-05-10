@@ -7,6 +7,7 @@ from django.contrib import auth
 from django.views.decorators.cache import cache_page
 from mainapp.views import index
 from django.contrib.auth.hashers import make_password
+from django.template.loader import render_to_string
 # Create your views here.
 
 #@csrf_exempt
@@ -47,7 +48,7 @@ def login(request):
             if user:
                 auth.login(request, user)
                 # return redirect(reverse('mainapp:index'))
-                return JsonResponse({'message': 'ok'})
+                return JsonResponse({'message': render_to_string('mainapp/index.html')})
             else:
                 return JsonResponse({'error': 'Неверный логин или пароль'})
                                 

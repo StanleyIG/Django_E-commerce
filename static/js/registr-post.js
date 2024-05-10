@@ -95,24 +95,43 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 //window.location.href = "/mainapp/"
-                if (response.message == 'ok') {
-                    window.location.href = "/mainapp/"
-                //     // console.log(response.message);
-                //     // // Получить ссылку на кнопку "Войти"
-                //     // const signInButton = document.querySelector('.btn');
+                if (response.message) {
+                    //window.location.href = "/mainapp/"
+                    window.history.pushState({ route: 'http://127.0.0.1:8000/mainapp/' }, "EVILEG", 'http://127.0.0.1:8000/mainapp/'); // устанавливаем URL в строку браузера
+                    //var newHtml = response.message;
+                    $("style").remove();
+                    $("head").empty();
+                    $("body").empty();
+                    //var newHtml = response.message.replace(/<script.*>.*<\/script>/igm, '');
+                    // $("html").html(newHtml);
+                    // console.log(newHtml);
+                    // Создаем новый документ HTML
+                    var newDoc = document.implementation.createHTMLDocument();
+                    // Вставляем новую HTML-разметку в документ HTML
+                    newDoc.documentElement.innerHTML = response.message;
+                    // Получаем содержимое элементов <head> и <body> из документа HTML
+                    var newHead = newDoc.head.innerHTML;
+                    var newBody = newDoc.body.innerHTML;
+                    // Обновляем содержимое элементов <head> и <body> на странице с помощью jQuery
+                    $("head").html(newHead);
+                    $("body").html(newBody);
+                    //$("body").html(newHtml);
+                    //     // console.log(response.message);
+                    //     // // Получить ссылку на кнопку "Войти"
+                    //     // const signInButton = document.querySelector('.btn');
 
-                //     // // Создать новый элемент <div> с классом error-message
-                //     // const errorMessage = document.createElement('div');
-                //     // errorMessage.classList.add('error-message');
+                    //     // // Создать новый элемент <div> с классом error-message
+                    //     // const errorMessage = document.createElement('div');
+                    //     // errorMessage.classList.add('error-message');
 
-                //     // // Вставить новый элемент перед кнопкой "Войти"
-                //     // signInButton.parentNode.insertBefore(errorMessage, signInButton);
+                    //     // // Вставить новый элемент перед кнопкой "Войти"
+                    //     // signInButton.parentNode.insertBefore(errorMessage, signInButton);
 
-                //     // // Добавить сообщение об ошибке в новый элемент
-                //     // errorMessage.textContent = response.error_message;
+                    //     // // Добавить сообщение об ошибке в новый элемент
+                    //     // errorMessage.textContent = response.error_message;
                 }
                 else {
-                     console.log(response.error);
+                    console.log(response.error);
                 }
             },
         });

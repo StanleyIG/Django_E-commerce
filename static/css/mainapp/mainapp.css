@@ -1,0 +1,17 @@
+body {
+    align-items: center;
+    background-color: var(--white);
+    background: url('/static/img/a7023b20e8e37c3e9d7d0a5e29434490.png') no-repeat center center fixed;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    height: 100vh;
+    place-items: center;
+  }
+  
+  body {
+    color: white;
+  }
+  
