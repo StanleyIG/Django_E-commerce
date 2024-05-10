@@ -71,6 +71,7 @@ $(document).ready(function () {
 
 
 // Аутентификация пользователя
+// Плавный рендеринг на другую страницу. Демонстрация работы Django в паре c JQuery
 $(document).ready(function () {
     $(".container__form.container--signin form").submit(function (e) {
         e.preventDefault();
