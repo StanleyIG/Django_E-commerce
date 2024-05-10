@@ -48,6 +48,7 @@ def login(request):
             if user:
                 auth.login(request, user)
                 # return redirect(reverse('mainapp:index'))
+                # Тут я рендерю страницу шаблона из приложения mainapp и передаю в Json ответе, так-же по необходимости ей можно передать необходимый контекст
                 return JsonResponse({'message': render_to_string('mainapp/index.html')})
             else:
                 return JsonResponse({'error': 'Неверный логин или пароль'})
