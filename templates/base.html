@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}
+    Styles
+    {% endblock style %}
+    <title>
+        {% block title %}
+        Myshop
+        {% endblock title %}
+    </title>
+</head>
+
+{% block content %}
+Content
+{% endblock content %}
+
+<!-- Для Django важно чтоб JS скрипты в базовом шаблоне подключались после контейнера "body" -->
+<!--использование jinja2 лока js не обязательно -->
+<!--Из этой библиотеки я использую объект Cookies, чтоб получить токен из куков пользователя который отправил Django в ответ запрос-->
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script>
+    const csrftoken = Cookies.get('csrftoken');
+    // Данный скрипт не требуется т.к. я использую JQuery AJAX запросы где $(document).ready(function () { .ajax код  })
+    // самовызывающаяся анонимная функция jQuery, которая выполняется после того, как DOM-дерево полностью загружено и готово к взаимодействию..
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     // DOM загружена
+    //     {% block domready %}
+    //     {% endblock %}
+    // })
+</script>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/registr.js' %}"></script>
+<script src="{% static 'js/registr-post.js' %}"></script>
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</html>
