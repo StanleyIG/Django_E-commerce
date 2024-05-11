@@ -6,4 +6,9 @@ from django.urls import reverse
 
 
 def index(request):
-    return render(request, 'mainapp/index.html')                                             
+    return render(request, 'mainapp/index.html')  
+
+
+def about(request):
+        return render(request, 'mainapp/about.html')
+                

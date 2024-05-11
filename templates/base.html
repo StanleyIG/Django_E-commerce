@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block style %}
-    Styles
+    <link rel="stylesheet" href="{% static 'css/authapp/registr.css' %}">
     {% endblock style %}
     <title>
         {% block title %}
@@ -16,12 +16,13 @@
 </head>
 
 {% block content %}
-Content
+
 {% endblock content %}
 
 <!-- Для Django важно чтоб JS скрипты в базовом шаблоне подключались после контейнера "body" -->
 <!--использование jinja2 блока js не обязательно -->
 <!--Из этой библиотеки я использую объект Cookies, чтоб получить csrf токен из куков пользователя который отправил Django в ответ на запрос-->
+{% block js %}
 <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 <script>
     // получаю токен...
@@ -38,5 +39,5 @@ Content
 <script src="{% static 'js/registr.js' %}"></script>
 <script src="{% static 'js/registr-post.js' %}"></script>
 <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-
+{% endblock js %}
 </html>
