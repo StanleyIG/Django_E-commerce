@@ -8,6 +8,7 @@ from django.views.decorators.cache import cache_page
 from mainapp.views import index
 from django.contrib.auth.hashers import make_password
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 # Create your views here.
 
 #@csrf_exempt
@@ -22,6 +23,8 @@ from django.template.loader import render_to_string
 #         # GET-запрос, отображаем форму регистрации
 #         return render(request, 'authapp/registr.html')
 
+@ensure_csrf_cookie # Этот декоратор передаёт csrf токен в куки браузера пользователя без необходимости передавать его с шаблонным тегом {% csrf_token %}
+@csrf_protect  # Не обязательно, но в некоторых случаях пригождается. В Django это итак встроенно и всегда будет запрашиваться токен, это работает на уровне csrf middleware                                       
 def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -36,7 +39,8 @@ def registration(request):
         return render(request, 'authapp/registr.html')
 
 
-
+@ensure_csrf_cookie
+@csrf_protect
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')

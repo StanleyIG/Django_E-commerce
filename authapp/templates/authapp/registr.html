@@ -12,7 +12,6 @@ Authentication
 		<!-- Sign Up  -->
 		<div class="container__form container--signup">
 			<form action="{% url 'authapp:registr' %}" class="form" id="form1" method="post">
-				{% csrf_token %}
 				<h2 class="form__title">Sign Up</h2>
 				<input type="text" id="user-form1" placeholder="username" class="input" />
 				<input type="email" placeholder="email" class="input" />
@@ -24,7 +23,6 @@ Authentication
 		<!-- Sign In -->
 		<div class="container__form container--signin">
 			<form action="{% url 'authapp:login' %}" class="form" id="form2" method="post">
-				{% csrf_token %}
 				<h2 class="form__title">Sign In</h2>
 				<input type="email" placeholder="email" class="input" id="username-login" />
 				<input type="password" placeholder="password" class="input" id="password-login" />
