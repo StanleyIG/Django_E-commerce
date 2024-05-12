@@ -6,6 +6,8 @@ $(document).ready(function () {
     $("#form1").submit(function (e) {
         e.preventDefault();
         var url = $(this).attr("action");
+        var token = $(this).find("input[name=csrfmiddlewaretoken]").val(); // Получить одноразовый токен csrf
+        console.log(token);
         // console.log(url);
         // console.log($("#user-form1").val());
         // стираю созданные ранее тэги с сообщениями об ошибки которые были ранее
@@ -15,7 +17,8 @@ $(document).ready(function () {
 
 
         var formData = {
-            csrfmiddlewaretoken: csrftoken, // Сервер Django тправит код 403 на запрос если гн отправить csrf токен
+            // csrfmiddlewaretoken: csrftoken, // Сервер Django тправит код 403 на запрос если гн отправить csrf токен
+            csrfmiddlewaretoken: token, // для большей безопасности всё-же лучше передавать одноразовый токен
             username: $('input[placeholder="username"]').val(),
             password: $('input[placeholder="password"]').val(),
             email: $('input[placeholder="email"]').val(),
@@ -76,14 +79,16 @@ $(document).ready(function () {
     $(".container__form.container--signin form").submit(function (e) {
         e.preventDefault();
         var url = $(this).attr("action");
-        console.log(url);
+        var token = $(this).find("input[name=csrfmiddlewaretoken]").val();
+        // console.log(url);
         // стираю созданные ранее тэги с сообщениями об ошибки которые были ранее
         $('.error-message').remove();
         // Удаление класса ошибки с полей
         $('.input').removeClass('error');
 
         var formData = {
-            csrfmiddlewaretoken: csrftoken, // Сервер Django тправит код 403 на запрос если не отправить csrf токен
+            // csrfmiddlewaretoken: csrftoken,
+            csrfmiddlewaretoken: token,
             password: $('#password-login').val(),
             email: $('#username-login').val(),
         };
