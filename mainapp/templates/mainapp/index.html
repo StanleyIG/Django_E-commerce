@@ -1,13 +1,151 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/mainapp/mainapp.css' %}">
+<link rel="stylesheet" href="{% static 'css/mainapp/index/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/mainapp/index/bootstrap.min.css.map' %}">
 {% endblock style %}
 {% block title %}
 Home
 {% endblock title %}
-{% block content %}
 
-<h1>Hello world</h1>
+
+    {% block content %}
+    <div class="slider padding-site">
+        {% include 'mainapp/include/shop_menu.html' %}
+        <div class="text">
+            <h4>ТЕНДЕНЦИИ</h4>
+            <h2>удобные стулья</h2>
+            <p>Новый уровень комфорта. Отличные характеристики.
+            </p>
+            <a href="#">заказать <img src="{% static 'img/mainapp/index/arrow_205.png' %}" alt=""></a>
+        </div>
+        <div class="navigation">
+            <a href="#"></a>
+            <a class="circle-active" href="#"></a>
+            <a href="#"></a>
+        </div>
+    </div>
+    <div class="featured-product-container padding-site">
+        <ul class="featured-product">
+            <li><a class="active" href="#">Популярные</a></li>
+            <li><a href="#">Новинки</a></li>
+        </ul>
+        <div class="btn-ghost">
+            <a href="#">показать все <img src="{% static 'img/mainapp/index/arrow_186.png' %}" alt=""></a>
+        </div>
+    </div>
+    <div class="tab-content-container padding-site">
+        <div class="tab-content">
+            <div class="block block-1">
+                <img src="{% static 'img/mainapp/index/product_1_172.jpg' %}" alt="">
+                <div class="hidden">
+                    <a href="#"><img src="{% static 'img/mainapp/index/arrow_181.png' %}" alt=""></a>
+                    <h4>Fishnet Chair</h4>
+                    <p>Seat and back with upholstery made of cold cure foam</p>
+                </div>
+            </div>
+            <div class="block block-2">
+                <img src="{% static 'img/mainapp/index/product_2_170.png' %}" alt="">
+                <div class="hidden">
+                    <a href="#"><img src="{% static 'img/mainapp/index/arrow_181.png' %}" alt=""></a>
+                    <h4>Fishnet Chair</h4>
+                    <p>Seat and back with upholstery made of cold cure foam</p>
+                </div>
+            </div>
+            <div class="block block-3">
+                <img src="{% static 'img/mainapp/index/product_3_168.png' %}" alt="">
+                <div class="hidden">
+                    <a href="#"><img src="{% static 'img/mainapp/index/arrow_181.png' %}" alt=""></a>
+                    <h4>Fishnet Chair</h4>
+                    <p>Seat and back with upholstery made of cold cure foam</p>
+                </div>
+            </div>
+            <div class="block block-4">
+                <img src="{% static 'img/mainapp/index/product_4_166.png' %}" alt="">
+                <div class="hidden">
+                    <a href="#"><img src="{% static 'img/mainapp/index/arrow_181.png' %}" alt=""></a>
+                    <h4>Fishnet Chair</h4>
+                    <p>Seat and back with upholstery made of cold cure foam</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="promo-product">
+        <div class="promo-content-1">
+            <h2>exclusive</h2>
+            <h4>Fishnet Chair</h4>
+            <a href="#">заказать <img src="{% static 'img/mainapp/index/arrow_151.png' %}" alt=""></a>
+        </div>
+        <div class="promo-content-2">
+            <h2>exclusive</h2>
+            <h4>Fishnet Chair</h4>
+            <a href="#">заказать <img src="{% static 'img/mainapp/index/arrow_151.png' %}" alt=""></a>
+        </div>
+    </div>
+    <div class="trending-product padding-site">
+        <div class="title">
+            <h4>Трендовые продукты</h4>
+            <div class="btn-ghost-2">
+                <a href="#">показать все<img src="{% static 'img/mainapp/index/arrow_121.png' %}" alt=""></a>
+            </div>
+        </div>
+        <div class="products">
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_11_117.jpg' %}" alt=""></a></div>
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_21_115.jpg' %}" alt=""></a></div>
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_31_113.jpg' %}" alt=""></a></div>
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_41_111.jpg' %}" alt=""></a></div>
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_5_109.jpg' %}" alt=""></a></div>
+            <div class="product"><a href="#"><img src="{% static 'img/mainapp/index/prdct/product_6_107.jpg' %}" alt=""></a></div>
+        </div>
+    </div>
+    <div class="hot-deals padding-site">
+        <div class="slider-content">
+            <h4>Горячее предложение</h4>
+            <h2>Fishnet Chair</h2>
+            <p>Seat and back with upholstery made of
+                cold cure foam.<br>
+                Steel frame, available
+                in matt powder-coated
+                black</p>
+            <a href="#">заказать <img src="{% static 'img/mainapp/index/arrow_205.png' %}" alt=""></a>
+        </div>
+        <div class="navigation-bottom">
+            <a href="#"></a>
+            <a href="#" class="circle-active"></a>
+            <a href="#"></a>
+        </div>
+    </div>
+    <div class="exclusive-products padding-site">
+        <div class="product-content">
+            <div class="product-content-hover">
+                <h4>exclusive</h4>
+                <h2>Fishnet Chair</h2>
+                <p>Seat and back with upholstery made of
+                    cold cure foam.<br>
+                    Steel frame, available
+                    in matt powder-coated
+                    black</p>
+                <a href="#">заказать <img src="{% static 'img/mainapp/index/arrow_205.png' %}" alt=""></a>
+            </div>
+
+        </div>
+        <div class="product-content-2">
+            <div class="exc-product"><a href="#"><img src="{% static 'img/mainapp/index/exclusive/product_2_sm_64.jpg' %}" alt=""></a></div>
+            <div class="exc-product"><a href="#"><img src="{% static 'img/mainapp/index/exclusive/product_3_sm_62.jpg' %}" alt=""></a></div>
+            <div class="exc-product"><a href="#"><img src="{% static 'img/mainapp/index/exclusive/product_4_sm_60.jpg' %}" alt=""></a></div>
+            <div class="exc-product"><a href="#"><img src="{% static 'img/mainapp/index/exclusive/product_5_sm_58.jpg' %}" alt=""></a></div>
+        </div>
+    </div>
+    <div class="mobile-app padding-site">
+        <div class="content">
+            <h4>mobile app</h4>
+            <h2>Find. Follow. <br> Favorite</h2>
+            <p>Save your favorites and share your style.</p>
+        </div>
+        <div class="app-store">
+            <a class="apple" href="#"><img src="{% static 'img/mainapp/index/mobile_app/app_store_47.jpg' %}" alt=""></a>
+            <a class="google" href="#"><img src="{% static 'img/mainapp/index/mobile_app/google_play_46.jpg' %}" alt=""></a>
+        </div>
+    </div>
 
 {% endblock content %}
