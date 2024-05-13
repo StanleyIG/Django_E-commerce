@@ -14,60 +14,9 @@
         {% endblock title %}
     </title>
 </head>
-<div class="my-container">
     {% block content %}
 
     {% endblock content %}
-    <div class="footer padding-site">
-        <div class="footers">
-            <div class="footer1">
-                <h4>Contact Us</h4>
-                <p>132A Bridge Road Richmond VIC<br>
-                    Australia.
-                    <br><br>
-                    Talk to us on 1300 132 <br>
-                    info@interior.com
-                </p>
-            </div>
-            <div class="footer2">
-                <h4>Useful Information</h4>
-                <div class="links-container">
-                    <div class="links-1">
-                        <a href="#">Sales terms</a>
-                        <a href="#">Customer care</a>
-                        <a href="#">Delivery</a>
-                    </div>
-                    <div class="links-2">
-                        <a href="">Architect accounts</a>
-                        <a href="">Careers</a>
-                        <a href="">Exchanges & returns</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer3">
-                <h4>Let’s Stay in Touch!</h4>
-                <p>Suscribe to know about our latest news, products and
-                    special offers just for suscribers.</p>
-                <form action="#">
-                    <input type="email" placeholder="your email address" maxlength="50">
-                    <a class="button" href="#" type="submit"><img
-                            src="{% static 'img/mainapp/index/footer/travel_FILL0_wght400_GRAD0_opsz24.svg' %}"
-                            alt=""></a>
-                </form>
-            </div>
-        </div>
-        <div class="last-container">
-            <p class="copy">© Copyright - INTERIOR 2016. All Rights Reserved.</p>
-            <p class="fonts"><span><a href="#"><img src="{% static 'img/mainapp/index/footer/google.svg' %}"
-                            alt=""></a></span>
-                <span><a href="#"><img src="{% static 'img/mainapp/index/footer/facebook.svg' %}" alt=""></a>
-                </span><span><a href="#"><img src="{% static 'img/mainapp/index/footer/twitter.svg' %}"
-                            alt=""></a></span>
-            </p>
-            <p class="policy">Terms Conditions / Privacy policy Cookies</p>
-        </div>
-    </div>
-</div>
 <!-- Для Django важно чтоб JS скрипты в базовом шаблоне подключались после контейнера "body" -->
 <!--использование jinja2 блока js не обязательно -->
 <!--Из этой библиотеки я использую объект Cookies, чтоб получить csrf токен из куков пользователя который отправил Django в ответ на запрос-->
@@ -87,7 +36,6 @@
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/registr.js' %}"></script>
 <script src="{% static 'js/registr-post.js' %}"></script>
-<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 {% endblock js %}
 
 </html>
