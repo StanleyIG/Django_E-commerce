@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+Если добавить шаблонный тэг style, то страница бцдет ожидать css стили, и не будет наследовать стили у базового шаблона
+А если убрать, тогда стили унаследуются от базового шаблона. В таком случае стили в базовом шаблоне должны быть
+уникальны для
+для всех шаблонов.
+{% endblock style %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+
+<body>
+    <h1>About</h1>
+    {% url 'mainapp:index' as absolute_url %}
+
+    <a href="{{ absolute_url }}">My View</a>
+    <a href="{% url 'mainapp:index' %}">My View2</a>
+
+</body>
+
+
+{% endblock content %}
