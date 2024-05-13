@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page not found</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/error_pages/page_not_found/main.css') }}">
+</head>
+<body>
+
+<h1>404</h1>
+<div class="cloak__wrapper">
+    <div class="cloak__container">
+        <div class="cloak"></div>
+    </div>
+</div>
+<div class="info">
+    <h2>Срок ссылки на страницу истёк</h2>
+    <p>Вы может повторить процедуру верификации</p>
+    <a href="{{ request.url_for('root') }}">Домой</a>
+</div>
+</body>
+</html>
