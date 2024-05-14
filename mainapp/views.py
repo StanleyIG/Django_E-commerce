@@ -25,10 +25,10 @@ def products(request):
     # в базе ничего не сохранилось
 
     # но вместо ошибки отправился ответ в Json  сописанием ошибки, чтоб этот ответ мог обработать js скрипт например
-    with transaction.atomic():
-        Product(name='Продукт 1', category_id=5).save()
-        Product(name='Продукт 2', category_id=5).save()
-        Product(name='Продукт 3').save()
+    # with transaction.atomic():
+    #     Product(name='Продукт 1', category_id=5).save()
+    #     Product(name='Продукт 2', category_id=5).save()
+    #     Product(name='Продукт 3').save()
 
     # тоже самое но без transaction.atomic()
     # Первые 2 до ошибки обязательно будут сохранены, что практически будет означать начало бед и мучений.

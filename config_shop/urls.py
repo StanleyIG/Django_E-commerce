@@ -23,9 +23,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", RedirectView.as_view(url="authapp/")),
-    path("authapp/", include("authapp.urls", namespace="authapp")),
+    path("", RedirectView.as_view(url="auth/")),
+    path("auth/", include("authapp_custom.urls", namespace="auth")),
     path('mainapp/', include('mainapp.urls', namespace='mainapp')),
+    path("social_auth/", include("social_django.urls", namespace="social")),
 ]
 
 if settings.DEBUG:

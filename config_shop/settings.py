@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()   
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authapp',
+    'django_bootstrap5',
+    "crispy_forms",
+    "crispy_bootstrap5",
+    'social_django',
+    'authapp_custom',
+    # 'authapp',
     'mainapp',
 ]
 
@@ -53,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mainapp.middleware.ExceptionMiddleware',
+    # 'mainapp.middleware.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config_shop.urls'
@@ -69,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -88,16 +95,29 @@ WSGI_APPLICATION = 'config_shop.wsgi.application'
 # }
 
 DATABASES = {
-   "default": {
-       "ENGINE": "django.db.backends.postgresql_psycopg2",
-       "NAME": os.environ.get('POSTGRES_DB'),
-       "USER": os.environ.get('POSTGRES_USER'),
-       'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-       "HOST": "localhost",
-       'PORT': '5432',
-       #'ATOMIC_REQUESTS': True,
-   }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get('POSTGRES_DB'),
+        "USER": os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        "HOST": "localhost",
+        'PORT': '5432',
+        # 'ATOMIC_REQUESTS': True,
+    }
 }
+
+
+# Кэш
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         },
+#     }
+# }
 
 
 # Password validation
@@ -117,6 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# кастомная модель пользователя
+AUTH_USER_MODEL = "authapp_custom.CustomUser"
 
 
 # Internationalization
@@ -141,17 +164,60 @@ STATICFILES_DIRS = (
 )
 
 # Media файлы
-MEDIA_URL = "/media/"
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Бэкэнды аутентификации
 
 AUTHENTICATION_BACKENDS = [
-    'authapp.backends.EmailBackend',
+    'social_core.backends.vk.VKOAuth2',
+    "authapp_custom.authenticate.EmailAuthBackend",
+    #'authapp.backends.EmailBackend',
+    "social_core.backends.github.GithubOAuth2",
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# куда меня редиректнет после аутентификации
+
+LOGIN_REDIRECT_URL = "mainapp:index"
+LOGOUT_REDIRECT_URL = "mainapp:login"
+
+# Django bootstrap 5
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# разрешит использовать для хранения данных поля типа JSONField;
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+# настройки для социальной аутентификации
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+
+
+# Отправка почты
+
+# Настроечный параметр EMAIL_BACKEND указывает класс, который будет использоваться для отправки электронной почты.
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Email as files for debug
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = "var/email-messages/"
+
+# Конфигурация сервера электронной почты
+
+EMAIL_HOST = os.getenv('SMTP_HOST')
+EMAIL_HOST_USER = os.getenv('SMTP_USER')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASS')
+EMAIL_PORT = os.getenv('SMTP_PORT')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL')
