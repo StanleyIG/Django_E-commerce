@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block container %}
+<div class="container">
     <div class="hero">
         {% include 'mainapp/includes/inc__main_menu.html' %}
         <h1>наши контакты</h1>
@@ -30,4 +31,6 @@
     {% else %}
         <h3>Данных нет</h3>
     {% endif %}
+    <div class="clr"></div>
+</div>
 {% endblock %}

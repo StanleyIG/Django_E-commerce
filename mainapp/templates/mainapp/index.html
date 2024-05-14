@@ -2,10 +2,7 @@
 {% load static %}
 
 {% block container %}
-
-{% if error %}
-  <h2 class="error-message">{{ error }}</h2>
-{% endif %}
+<div class="main-container">
     <div class="slider">
         {% include 'mainapp/includes/inc__main_menu.html' %}
         <div class="text-slider">
@@ -64,4 +61,6 @@
             </div>
         </div>
     </div>
+    <div class="clr"></div>
+</div>
 {% endblock %}
