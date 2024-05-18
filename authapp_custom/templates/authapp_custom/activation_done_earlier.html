@@ -1,0 +1,10 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}Пользователь уже активирован{% endblock %}
+{% block container %}
+<div class="main-container">
+<h2>Активация</h2>
+<p>Пользователь с таким именем был активирован ранее.</p>
+<p><a href="{% url 'auth:login' %}">Войти на сайт</a></p>
+</div>
+{% endblock %} 

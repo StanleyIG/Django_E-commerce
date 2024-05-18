@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from django.core.exceptions import ValidationError
+from .signals import post_register
 
 
 
@@ -54,6 +55,15 @@ class CustomUserCreationForm(WidgetMixin, UserCreationForm):
             "email",
         )
         field_classes = {"username": UsernameField}
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        user.is_active = False
+        if commit:
+            user.save()
+        post_register.send(CustomUserCreationForm, instance=user)
+        return user 
 
 
 class CustomLoginView(WidgetMixin, AuthenticationForm):

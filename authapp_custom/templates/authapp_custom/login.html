@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    
+
     <div class="h-100 d-flex align-items-center justify-content-center"
         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
         <div class="text-center">
@@ -42,7 +42,8 @@
                     {{ f }}
                 </p>
                 {% endfor %}
-                <button type="submit" class="btn btn-danger btn-block">Войти</button>
+                <button type="submit" class="btn btn-danger btn-block" style="padding: 10px;
+                border: 1px solid #ccc;">Войти</button>
             </form>
             <p>
             <div class="row justify-content-between">
@@ -58,9 +59,10 @@
             <p>
             <div class="btn-group btn-block" role="group">
                 <a class="btn btn-primary" href="#" role="button"><i class="fab fa-vk"></i></a>
-                <a class="btn btn-primary" style="background-color: #0056b3;" href="#" role="button"><i class="fab fa-facebook"></i></a>
-                <a class="btn btn-dark" style="background-color: #000408;" href="{% url 'social:begin' 'github' %}" role="button"><i
-                        class="fab fa-github"></i></a>
+                <a class="btn btn-primary" style="background-color: #0056b3;" href="#" role="button"><i
+                        class="fab fa-facebook"></i></a>
+                <a class="btn btn-dark" style="background-color: #000408;" href="{% url 'social:begin' 'github' %}"
+                    role="button"><i class="fab fa-github"></i></a>
             </div>
             </p>
         </div>
