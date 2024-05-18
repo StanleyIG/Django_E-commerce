@@ -13,8 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import configparser
 
 load_dotenv()
+
+config = configparser.ConfigParser()
+config.read('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +33,7 @@ SECRET_KEY = 'django-insecure-p=!*etu(koo!2vs(^4cs-u2_pun6hn$1y#sh!lxdlne6za23%=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]'] #['*']
 
 
 # Application definition
@@ -207,17 +211,21 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 # Отправка почты
 
 # Настроечный параметр EMAIL_BACKEND указывает класс, который будет использоваться для отправки электронной почты.
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Email as files for debug
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # EMAIL_FILE_PATH = "var/email-messages/"
 
 # Конфигурация сервера электронной почты
-
-EMAIL_HOST = os.getenv('SMTP_HOST')
-EMAIL_HOST_USER = os.getenv('SMTP_USER')
-EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASS')
-EMAIL_PORT = os.getenv('SMTP_PORT')
-EMAIL_USE_TLS = False
+# EMAIL_HOST = os.getenv('SMTP_HOST')
+# EMAIL_HOST_USER = os.getenv('SMTP_USER')
+# EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASS')
+EMAIL_HOST = config.get('smtp', 'SMTP_HOST')
+EMAIL_HOST_USER = config.get('smtp', 'SMTP_USER')
+EMAIL_HOST_PASSWORD = config.get('smtp', 'SMTP_PASS')
+EMAIL_PORT = 465#os.getenv('SMTP_PORT')
+# EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = os.getenv('EMAIL')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER

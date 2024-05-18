@@ -1,20 +1,25 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic import CreateView, UpdateView
+from authapp_custom.models import CustomUser
 from authapp_custom import forms
+from django.core.signing import BadSignature
+from .utilities import signer
 
 
 class CustomLoginView(LoginView):
     template_name = 'authapp_custom/login.html'
     form_class = forms.CustomLoginView
+
     def form_valid(self, form):
         ret = super().form_valid(form)
-        message ="Вход выполнен!<br>Привет, %(username)s" % {
+        message = "Вход выполнен!<br>Привет, %(username)s" % {
             "username": self.request.user.get_full_name()
             if self.request.user.get_full_name()
             else self.request.user.get_username()
@@ -39,10 +44,27 @@ class CustomLogoutView(LogoutView):
 
 
 class RegisterView(CreateView):
-    #template_name = 'authapp_custom/register.html'
+    # template_name = 'authapp_custom/register.html'
     form_class = forms.CustomUserCreationForm
     model = get_user_model()
-    success_url = reverse_lazy("auth:login")
+    # success_url = reverse_lazy("auth:login")
+    success_url = reverse_lazy('auth:done')
+
 
 class RegisterDoneView(TemplateView):
- template_name = 'auth/register_done.html'
+    template_name = 'authapp_custom/register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'authapp_custom/activation_failed.html')
+    user = get_object_or_404(CustomUser, username=username)
+    if user.is_active:
+        template = 'authapp_custom/activation_done_earlier.html'
+    else:
+        template = 'authapp_custom/activation_done.html'
+        user.is_active = True
+        user.save()
+    return render(request, template)
