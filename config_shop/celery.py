@@ -9,7 +9,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 # Для запуска на винде, до этого должна быть установлена библиотека eventlet
-# celery -A <your_project> worker -l INFO -P eventlet
+# celery -A <your_project> worker -l INFO -P eventlet - > celery -A config_shop worker -l INFO -P eventlet
 
 # celery_app = Celery("config_shop")
 # celery_app.config_from_object("django.conf:settings", namespace="CELERY")

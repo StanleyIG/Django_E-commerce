@@ -7,6 +7,6 @@ from .utilities import send_activation_notification, send_activation_notificatio
 
 
 @shared_task
-def send_activation_notification_task(email_address):
-    send_activation_notification_user_id(email_address)
+def send_activation_notification_task(email, username):
+    send_activation_notification_user_id(email, username)
     #send_activation_notification(user['instance'])

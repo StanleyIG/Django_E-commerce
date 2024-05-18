@@ -62,7 +62,11 @@ class CustomUserCreationForm(WidgetMixin, UserCreationForm):
         user.is_active = False
         if commit:
             user.save()
-        post_register.send(CustomUserCreationForm, instance=user)
+        # post_register.send(CustomUserCreationForm, instance=user)
+        # для Celery
+        post_register.send(sender=CustomUserCreationForm, 
+                           email=self.cleaned_data['email'],
+                           username=self.cleaned_data['username'])
         return user 
 
 
