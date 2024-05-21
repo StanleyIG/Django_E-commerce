@@ -29,20 +29,10 @@ class Command(BaseCommand):
         Product.objects.all().delete()
         for product in products:
             category_name = product['category']
-            # Получаем категорию по имени
-            # _category = ProductCategory.objects.get(name=category_name)
-            # _category = ProductCategory.objects.filter(name=category_name).first()
-            # _category = list(ProductCategory.objects.filter(name=category_name))[0]
-            _category = ProductCategory.objects.get(name=category_name)  # .get() -> concrete object
-            # Заменяем название категории объектом
+            _category = ProductCategory.objects.get(name=category_name)
             product['category'] = _category
             new_product = Product(**product)
             new_product.save()
 
-        # if not len(ShopUser.objects.filter(username='django'))
-        # if ShopUser.objects.filter(username='django').count() == 0:
         if not CustomUser.objects.filter(username='admin').exists():
-            # ShopUser.objects.create(username='django', email='admin@geekshop.local', password='geekbrains')
             CustomUser.objects.create_superuser(username='admin', email='admin@mail.ru', password='admin')
-
-# 7 min -> 20:06 AIR
