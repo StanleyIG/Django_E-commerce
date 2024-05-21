@@ -76,6 +76,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                 "django.template.context_processors.media", # для проброса шаблонного тэга {{ MEDIA }} -> путь к медиафайлам
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
@@ -179,9 +180,13 @@ STATICFILES_DIRS = (
 )
 
 # Media файлы
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
 
 JSON_PATH = 'json'
 
@@ -203,7 +208,7 @@ AUTHENTICATION_BACKENDS = [
 # куда меня редиректнет после аутентификации
 
 LOGIN_REDIRECT_URL = "mainapp:index"
-LOGOUT_REDIRECT_URL = "mainapp:login"
+LOGOUT_REDIRECT_URL = "mainapp:index"
 
 # Django bootstrap 5
 

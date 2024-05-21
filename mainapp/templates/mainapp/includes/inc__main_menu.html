@@ -16,6 +16,21 @@
                 контакты
             </a>
         </li>
+        {% if user.is_authenticated %}
+        <a href="{% url 'auth:profile_edit' pk=request.user.pk %}">
+            {{ user.get_full_name|default:user.get_username }}
+        </a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'auth:logout' %}">
+            выход
+        </a>
+        {% else %}
+        <a href="{% url 'auth:login' %}">
+            вход
+        </a>
+        {% endif %}
     </ul>
     <a href="#" class="search"></a>
     <a href="#" class="basket"></a>

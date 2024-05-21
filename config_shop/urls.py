@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", RedirectView.as_view(url="auth/")),
+    path("", RedirectView.as_view(url="mainapp/")),
     path("auth/", include("authapp_custom.urls", namespace="auth")),
     path('mainapp/', include('mainapp.urls', namespace='mainapp')),
     path("social_auth/", include("social_django.urls", namespace="social")),
