@@ -9,6 +9,8 @@ def index(request):
         # 'page_title': 'главная',
         'error': None,
     }
+    products = Product.objects.all()
+    request.session['products'] = products[0].name
     return render(request, 'mainapp/index.html', context)
 
 
@@ -21,6 +23,11 @@ def products(request):
     # Так-что даже если categories = ProductCategory.objects.all() был вызван раньше чем создание новых записей,
     # то фактический запрос будет в момент вызова при рендеринге запроса, и я увижу все актульные записи.
     products = Product.objects.all()
+    # print(request.session.session_key)
+
+    
+
+
     # намеренно не дам совершится запросам
     # в базе ничего не сохранилось
 

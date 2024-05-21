@@ -123,6 +123,11 @@ CACHES = {
     }
 }
 
+
+# хранить данные сессии в кэшэ, увеличит производительность, если данные сессий не критически важны для данного сервиса.
+SESSION_ENGINE =  "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default" # По умолчанию значение default, но если добавить ещё другой кэш, то нужно указать какой именно.
+
 # celery
 CELERY_BROKER_URL = "redis://127.0.0.1:6379"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"
@@ -178,6 +183,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+JSON_PATH = 'json'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
