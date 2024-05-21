@@ -76,6 +76,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                 "django.template.context_processors.media", # для проброса шаблонного тэга {{ MEDIA }} -> путь к медиафайлам
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
@@ -122,6 +123,11 @@ CACHES = {
         },
     }
 }
+
+
+# хранить данные сессии в кэшэ, увеличит производительность, если данные сессий не критически важны для данного сервиса.
+SESSION_ENGINE =  "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default" # По умолчанию значение default, но если добавить ещё другой кэш, то нужно указать какой именно.
 
 # celery
 CELERY_BROKER_URL = "redis://127.0.0.1:6379"
@@ -174,10 +180,15 @@ STATICFILES_DIRS = (
 )
 
 # Media файлы
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+JSON_PATH = 'json'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -197,7 +208,7 @@ AUTHENTICATION_BACKENDS = [
 # куда меня редиректнет после аутентификации
 
 LOGIN_REDIRECT_URL = "mainapp:index"
-LOGOUT_REDIRECT_URL = "mainapp:login"
+LOGOUT_REDIRECT_URL = "mainapp:index"
 
 # Django bootstrap 5
 

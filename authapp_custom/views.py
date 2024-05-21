@@ -68,3 +68,14 @@ def user_activate(request, sign):
         user.is_active = True
         user.save()
     return render(request, template)
+
+
+class ProfileEditView(UserPassesTestMixin, UpdateView):
+    model = get_user_model()
+    form_class = forms.CustomUserChangeForm
+
+    def test_func(self):
+        return True if self.request.user.pk == self.kwargs.get("pk") else False
+
+    def get_success_url(self):
+        return reverse_lazy("auth:profile_edit", args=[self.request.user.pk])

@@ -1,6 +1,6 @@
 /*кнопки */
 
-.custombtn-clear-social {
+.custombtn-save-social {
     padding: 8px 10px;
     font-size: 14px;
     color: rgb(233, 233, 233);
@@ -10,4 +10,28 @@
     width: 100%;
     background-color: #353740;
     transition: box-shadow 0.3s ease;
+    outline: none !important;
+    text-decoration: none !important;
+    text-align: center;
 }
+
+
+.custombtn-main-social {
+    padding: 8px 10px;
+    font-size: 14px;
+    color: rgb(233, 233, 233) !important;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #2c2f46;
+    width: 100%;
+    background-color: #353740;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+    text-decoration: none !important;
+}
+
+
+/* .custombtn-main-social:hover {
+    color: rgb(233, 233, 233);
+    text-decoration: none;
+  } */

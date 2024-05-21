@@ -2,6 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block css %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/fontawesome.all.min.css' %}">
@@ -26,7 +27,7 @@
         {% if user.avatar %}
         <img src="{{ user.avatar.url }}" alt="" width="100%">
         {% else %}
-        <img src="{{ MEDIA_URL }} avatar_default.svg" alt="" width="100%">
+        <img src="{{ MEDIA_URL }}avatar_default.svg" alt="" width="100%">
         {% endif %}
       </div>
     </div>
@@ -37,14 +38,21 @@
       {{ form|crispy }}
       <small>* обязательные поля для ввода</small>
       <!--<button type="submit" class="btn btn-danger btn-block" style="padding:8px;">-->
-      <button type="submit" class="custombtn-clear-social">
-        {% if user.is_anonymous %}
-        Зарегистрироваться
-        {% else %}
-        Сохранить
-        {% endif %}
-      </button>
-
+      <div class="btn-group btn-block" role="group">
+        <button type="submit" class="custombtn-save-social">
+          {% if user.is_anonymous %}
+          Зарегистрироваться
+          {% else %}
+          Сохранить
+          {% endif %}
+        </button>
+        <!-- <a href="{% url 'mainapp:index' %}" type="button" class="custombtn-main-social">
+          На главную
+        </a> -->
+        <button type="button" onclick="location.href='{% url 'mainapp:index' %}'"   class="custombtn-main-social">
+          На главную
+        </button>
+      </div>
     </form>
   </div>
 </div>
