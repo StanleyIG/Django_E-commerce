@@ -131,9 +131,9 @@ html, body {
 	letter-spacing: 3px;
 	outline: none !important;
 }
-.button-order:hover {
+/* .button-order:hover {
 	box-shadow: none;
-}
+} */
 .button-order:active {
 	box-shadow: none;
 	margin-top: 35px;

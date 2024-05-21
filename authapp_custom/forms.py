@@ -4,6 +4,46 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from django.core.exceptions import ValidationError
 from .signals import post_register
+from io import BytesIO
+from PIL import Image as PilImage
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+
+
+def resize_uploaded_image(image, max_width, max_height):
+    """Функции передаётся 1 из объектов, если пользователь не 
+       добавлял свой аватар, или не изменял, то функция вернёт None
+    """
+    size = (max_width, max_height)
+
+    # Если загруженный файл находится в памяти
+    if isinstance(image, InMemoryUploadedFile):
+        memory_image = BytesIO(image.read())
+        pil_image = PilImage.open(memory_image)
+        img_format = os.path.splitext(image.name)[1][1:].upper()
+        img_format = 'JPEG' if img_format == 'JPG' else img_format
+
+        if pil_image.width > max_width or pil_image.height > max_height:
+            pil_image.thumbnail(size)
+
+        new_image = BytesIO()
+        pil_image.save(new_image, format=img_format)
+
+        new_image = ContentFile(new_image.getvalue())
+        return InMemoryUploadedFile(new_image, None, image.name, image.content_type, None, None)
+
+    # Если загруженный файл находится на диске
+    elif isinstance(image, TemporaryUploadedFile):
+        path = image.temporary_file_path()
+        print(f'TemporaryUploadedFile: {path}')
+        pil_image = PilImage.open(path)
+
+        if pil_image.width > max_width or pil_image.height > max_height:
+            pil_image.thumbnail(size)
+            pil_image.save(path)
+            image.size = os.stat(path).st_size
+
+    return image
 
 
 class WidgetMixin:
@@ -76,6 +116,9 @@ class CustomLoginView(WidgetMixin, AuthenticationForm):
 
 
 class CustomUserChangeForm(forms.ModelForm):
+    IMAGE_WIDTH = 350
+    IMAGE_HEIGHT = 350
+
     class Meta:
         model = get_user_model()
         fields = (
@@ -93,7 +136,11 @@ class CustomUserChangeForm(forms.ModelForm):
         if arg_as_str in self.changed_data and self.instance.avatar:
             if os.path.exists(self.instance.avatar.path):
                 os.remove(self.instance.avatar.path)
-        return self.cleaned_data.get(arg_as_str)
+        avatar = self.cleaned_data.get(arg_as_str)
+        print(type(avatar))
+        # уменьшить размер, если был передан объект файла изображения
+        resize_uploaded_image(avatar, self.IMAGE_WIDTH, self.IMAGE_HEIGHT)
+        return avatar #self.cleaned_data.get(arg_as_str)
 
     def clean_age(self):
         data = self.cleaned_data.get("age")

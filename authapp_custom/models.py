@@ -5,6 +5,7 @@ from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
+from PIL import Image
 
 
 def users_avatars_path(instance, filename):
@@ -22,8 +23,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         "имя пользователя",
         max_length=150,
         unique=True,
-        help_text=
-            "Не более 150 символов. Только буквы и цифры в формате ASCII.",
+        help_text="Не более 150 символов. Только буквы и цифры в формате ASCII.",
         validators=[username_validator],
         error_messages={
             "unique": "Пользователь с таким именем уже существует",
@@ -44,32 +44,31 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     is_staff = models.BooleanField(
         "статус персонала",
-        default=False, # 0
+        default=False,  # 0
         help_text="Определяет, может ли пользователь войти в сайт админа.",
     )
     is_active = models.BooleanField(
         "статус активности",
-        default=False, # Активация по почте
+        default=False,  # Активация по почте
         help_text="Активен ли пользователь",
     )
     date_joined = models.DateTimeField("дата регистрации", auto_now_add=True)
 
     objects = UserManager()
 
-    EMAIL_FIELD = "email" # аутентификация по email
-    USERNAME_FIELD = "username" # указываю какое поле должно отображаться в приложении
-    REQUIRED_FIELDS = ["email"] # обязательные поля которые необходимо заполнить
+    EMAIL_FIELD = "email"  # аутентификация по email
+    USERNAME_FIELD = "username"  # указываю какое поле должно отображаться в приложении
+    # обязательные поля которые необходимо заполнить
+    REQUIRED_FIELDS = ["email"]
 
     class Meta:
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
 
-    
     def save(self, *args, **kwargs):
         if self.is_superuser:
             self.is_active = True
         super().save(*args, **kwargs)
-
 
     def clean(self):
         super().clean()
