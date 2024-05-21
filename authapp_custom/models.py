@@ -64,6 +64,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
 
+    
+    def save(self, *args, **kwargs):
+        if self.is_superuser:
+            self.is_active = True
+        super().save(*args, **kwargs)
+
 
     def clean(self):
         super().clean()

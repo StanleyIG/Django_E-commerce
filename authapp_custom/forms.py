@@ -65,8 +65,8 @@ class CustomUserCreationForm(WidgetMixin, UserCreationForm):
         # post_register.send(CustomUserCreationForm, instance=user)
         # для Celery
         post_register.send(sender=CustomUserCreationForm, 
-                           email=self.cleaned_data['email'],
-                           username=self.cleaned_data['username'])
+                        email=self.cleaned_data['email'],
+                        username=self.cleaned_data['username'])
         return user 
 
 
