@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'authapp_custom',
     # 'authapp',
     'mainapp',
+    'basketapp',
 ]
 
 MIDDLEWARE = [
