@@ -1,4 +1,4 @@
-<div class="header clearfix">
+<div class="clearfix">
     <a href="{% url 'mainapp:index' %}" class="logo"></a>
     <ul class="menu">
         <li>
@@ -32,6 +32,9 @@
         </a>
         {% endif %}
     </ul>
-    <a href="#" class="search"></a>
-    <a href="#" class="basket"></a>
+    <div class="search-menu">
+        <a href="#" class="search"></a>
+        <!-- <a href="#" class="basket"></a> -->
+        <a href="{% url 'basket:index' %}" class="basket fa-shopping-basket"></a>
+    </div>
 </div>
