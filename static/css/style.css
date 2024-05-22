@@ -13,7 +13,14 @@ html, body {
 }
 
 .clr {
-	height: 384px;
+	/* height: 384px; */
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.padding-site {
+    padding-left: 98px;
+    padding-right: 98px;
 }
 
 .main-container {
@@ -263,14 +270,6 @@ html, body {
 }
 
 .explore {
-	font-family: 'Montserrat', sans-serif;
-    /* font-size: 18px;
-    line-height: 24px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #212121;
-    text-decoration: none; */
 	text-transform: uppercase;
 	color:  #212121;
 	font-size: 18px;
@@ -280,8 +279,7 @@ html, body {
 	float: right;
 	margin-top: 138px;
 	letter-spacing: 3px;
-	text-decoration: none !important;
-	outline: none !important;
+	text-decoration: none;
 }
 
 /* .explore:hover {
@@ -387,7 +385,7 @@ html, body {
     padding-left: 32px;
 }
 
-/*.tab-content {
+/* .tab-content {
 	margin-top: 50px;
 	display: flex;
 	justify-content: space-between;
@@ -428,8 +426,8 @@ html, body {
 }
 .tab-content a:hover .text {
 	display: block;
-}
-*/
+} */
+
 
 
 
@@ -509,8 +507,18 @@ html, body {
 /*trending product*/
 .title {
     display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
     align-items: center;
+}
+.title h2 {
+	float: left;
+	margin-top: 118px;
+	color:  #212121;
+	font-size: 36px;
+	font-weight: 700;
+	text-align: left;
+	margin-left: 15px;
+
 }
 
 .btn-ghost-2 {
@@ -666,9 +674,9 @@ html, body {
 }
 .trending-products a:hover .text{
 	display: block;
-} */
+}
 
-/* .hot-deal {
+.hot-deal {
 	margin-top: 105px;
 	height: 800px;
 	padding-left: 98px;
@@ -1046,7 +1054,7 @@ html, body {
 	color: #6c6c6c;
 } */
 
-.main-footer {
+/* .main-footer {
 	height: 384px;
 	width: 1169px;
 	background-color: #f7f7f7;
@@ -1054,7 +1062,7 @@ html, body {
 	padding-right: 98px;
 	margin: -384px auto 0;
 	clear: both;
-}
+} */
 
 /* .main-footer form {
 	position: relative;
@@ -1087,15 +1095,15 @@ html, body {
 	margin-bottom: 22px;
 	letter-spacing: 2px;
 } */
-.text-main-footer p {
+/* .text-main-footer p {
 	color:  #212121;
-	font-size: 14px;/* Приближение из-за подстановки шрифтов */
+	font-size: 14px;
 	font-weight: 300;
-	line-height: 24px;/* Приближение из-за подстановки шрифтов */
+	line-height: 24px;
 	text-align: left;
 	margin-bottom: 20px;
-}
-.text-main-footer a {
+} */
+/* .text-main-footer a {
 	text-decoration: none !important;
 	text-transform: uppercase;
 	color:  #212121;
@@ -1104,8 +1112,8 @@ html, body {
 	line-height: 26px;
 	text-align: left;
 	outline: none !important;
-}
-.text-main-footer a:hover {
+} */
+/* .text-main-footer a:hover {
 	border-bottom: 2px solid #212121;
 }
 .text-main-footer a:active {
@@ -1209,6 +1217,7 @@ td:first-child {
 
 /*footer*/
 .main-footer {
+	/* margin-top: 0px; */
     height: 384px;
     background-color: #f7f7f7;
 }
@@ -1216,6 +1225,10 @@ td:first-child {
 .footers {
     display: flex;
     padding-top: 114px;
+}
+
+.footer1{
+	margin-left: 98px;
 }
 
 .footer1 h4,
@@ -1276,7 +1289,7 @@ td:first-child {
 
 .footer3 {
     padding-left: 98px;
-    width: 360px;
+    width: 365px;
 }
 
 .footer3 p {
@@ -1373,6 +1386,7 @@ form img:active {
 
 .location {
 	padding: 0px 97px;
+	margin-bottom: 650px;
 }
 .location-1 {
 	height: 368px;
@@ -1672,17 +1686,19 @@ form img:active {
 	padding: 0px 98px;
 }
 .related .title {
-	height: 343px;
-	margin-right: 0;
+	height: 143px;
+	margin-right: 0px;
 }
 .related .title h2 {
-	margin-top: 245px;
+	margin-top: 30px;
 }
 .related .title .explore {
-	margin-top: 262px;
+	margin-top: 30px;
+	margin-left: 620px;
 }
 .related-products {
-	margin-bottom: 120px;
+	margin-top: 30px;
+	/* margin-bottom: 100px; */
 }
 .related-products .block a img {
 	float: left;
