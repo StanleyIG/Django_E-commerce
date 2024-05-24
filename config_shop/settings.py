@@ -191,6 +191,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 JSON_PATH = 'json'
 
+LOGIN_URL = '/auth/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
