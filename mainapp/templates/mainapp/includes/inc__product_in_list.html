@@ -1,0 +1,11 @@
+{% load static %}
+<div class="block">
+    <a href="{% url 'mainapp:product_page' product.pk %}">
+        <img src="/media/{{ product.image }}" alt="">
+        <div class="text">
+            <img src="{% static 'img/icon-hover.png' %}" alt="img">
+            <h4>{{ product.name }}</h4>
+            <p>{{ product.short_desc }}</p>
+        </div>
+    </a>
+</div>
