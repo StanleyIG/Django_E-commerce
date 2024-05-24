@@ -49,17 +49,30 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-class ProductListView(TemplateView):
-    template_name = 'mainapp/products.html'
+def products(request):
     hot_product = get_hot_product()
     _related_products = related_products(hot_product)
 
+    context = {
+        'page_title': 'каталог',
+        'categories': get_menu(),
+        'hot_product': hot_product,
+        'related_products': _related_products,
+    }
+    return render(request, 'mainapp/products.html', context)
+
+
+class ProductListView(TemplateView):
+    template_name = 'mainapp/products.html'
+
     def get_context_data(self, **kwargs):
+        hot_product = get_hot_product()
+        _related_products = related_products(hot_product)
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'каталог'
         context['categories'] = get_menu()
-        context['hot_product'] = self.hot_product
-        context['related_products'] = self._related_products
+        context['hot_product'] = hot_product
+        context['related_products'] = _related_products
         return context
 
 
