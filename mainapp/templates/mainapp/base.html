@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="utf-8">
+    {% block title %}
     <title>{{ page_title|default:"главная"|title }}</title>
+    {% endblock %}
     {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
@@ -14,14 +16,24 @@
     <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawesome.all.min.css' %}">
     {% endblock css %}
+    {% block js %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script src="{% static 'js/fontawesome.all.min.js' %}"></script>
+    {% endblock js %}
 </head>
 
 <body>
     {% include 'includes/messages.html' %}
-    {% block container %}
-    {% endblock container %}
+    <div class="main-container">
+        {% block container %}
+        {% endblock container %}
+        <div class="clr"></div>
+    </div>
     {% block footer %}
-    <div class="main-footer">
+    <div class="main-footer padding-site">
         <div class="footers">
             <div class="footer1">
                 <h4>Contact Us</h4>
@@ -62,10 +74,12 @@
             <p class="copy">© Copyright - INTERIOR 2016. All Rights Reserved.</p>
             <p class="fonts"><span><a href="#"><img src="{% static 'img/footer/google.svg' %}" alt=""></a></span>
                 <span><a href="#"><img src="{% static 'img/footer/facebook.svg' %}" alt=""></a>
-                </span><span><a href="#"><img src="{% static 'img/footer/twitter.svg' %}" alt=""></a></span></p>
+                </span><span><a href="#"><img src="{% static 'img/footer/twitter.svg' %}" alt=""></a></span>
+            </p>
             <p class="policy">Terms Conditions / Privacy policy Cookies</p>
         </div>
     </div>
+    {% endblock footer %}
     <!-- <div class="main-footer">
         <div class="clearfix">
             <div class="text-footer">
@@ -92,15 +106,9 @@
         </div>
         <p class="small">Положения &amp; Условия / Конфиденциальность &amp; Cookies</p>
     </div> -->
-    {% endblock footer %}
+
 </body>
-{% block js %}
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/Chart.min.js' %}"></script>
-<script src="{% static 'js/fontawesome.all.min.js' %}"></script>
-{% endblock js %}
+
 <script>
     $(document).ready(function () {
 
@@ -112,4 +120,5 @@
 
     });
 </script>
+
 </html>

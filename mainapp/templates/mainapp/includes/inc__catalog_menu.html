@@ -1,13 +1,13 @@
 <div class="links clearfix">
     <ul class="links-menu">
         <li>
-            <a href="{% url 'main:catalog' pk=0 %}">
+            <a href="{% url 'mainapp:catalog' pk=0 %}">
                 все
             </a>
         </li>
         {% for category in categories %}
             <li>
-                <a href="{% url 'main:catalog' pk=category.pk %}">
+                <a href="{% url 'mainapp:catalog' pk=category.pk %}">
                     {{ category.name }}
                 </a>
             </li>
