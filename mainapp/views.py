@@ -49,18 +49,6 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def products(request):
-    hot_product = get_hot_product()
-    _related_products = related_products(hot_product)
-
-    context = {
-        'page_title': 'каталог',
-        'categories': get_menu(),
-        'hot_product': hot_product,
-        'related_products': _related_products,
-    }
-    return render(request, 'mainapp/products.html', context)
-
 
 class ProductListView(TemplateView):
     template_name = 'mainapp/products.html'
