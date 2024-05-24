@@ -88,3 +88,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Отправить электронное письмо этому пользователю."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def basket_cost(self):
+        return sum(item.product.price * item.quantity for item in self.user_basket.all())
+
+    def basket_total_quantity(self):
+        return sum(item.quantity for item in self.user_basket.all())

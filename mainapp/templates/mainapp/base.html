@@ -16,6 +16,13 @@
     <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawesome.all.min.css' %}">
     {% endblock css %}
+    {% block js %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script src="{% static 'js/fontawesome.all.min.js' %}"></script>
+    {% endblock js %}
 </head>
 
 <body>
@@ -25,6 +32,7 @@
         {% endblock container %}
         <div class="clr"></div>
     </div>
+    {% block footer %}
     <div class="main-footer padding-site">
         <div class="footers">
             <div class="footer1">
@@ -71,6 +79,7 @@
             <p class="policy">Terms Conditions / Privacy policy Cookies</p>
         </div>
     </div>
+    {% endblock footer %}
     <!-- <div class="main-footer">
         <div class="clearfix">
             <div class="text-footer">
@@ -99,13 +108,7 @@
     </div> -->
 
 </body>
-{% block js %}
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/Chart.min.js' %}"></script>
-<script src="{% static 'js/fontawesome.all.min.js' %}"></script>
-{% endblock js %}
+
 <script>
     $(document).ready(function () {
 

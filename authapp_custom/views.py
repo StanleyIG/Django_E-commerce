@@ -50,6 +50,11 @@ class RegisterView(CreateView):
     # success_url = reverse_lazy("auth:login")
     success_url = reverse_lazy('auth:done')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Регистрация"
+        return context
+
 
 class RegisterDoneView(TemplateView):
     template_name = 'authapp_custom/register_done.html'
@@ -73,6 +78,11 @@ def user_activate(request, sign):
 class ProfileEditView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     form_class = forms.CustomUserChangeForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Профиль"
+        return context
 
     def test_func(self):
         return True if self.request.user.pk == self.kwargs.get("pk") else False

@@ -217,6 +217,12 @@ body {
 	/* Добавлен transition для плавного эффекта */
 }
 
+.basket span {
+	display: block;
+    margin-left: 30px;
+    width: 150px;
+}
+
 .clearfix:after {
 	content: "";
 	display: block;
