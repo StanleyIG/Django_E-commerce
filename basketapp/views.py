@@ -23,9 +23,16 @@ def index(request):
 
 @login_required
 def add(request, pk):
+    # print(request.META.get('HTTP_REFERER'))
+    # если пользователя нет в системе, то его редиректнет к странице входа.
+    if 'auth' in request.META.get('HTTP_REFERER'):
+        # print(request.META.get('HTTP_REFERER').split('/')[3])
+        # После успешной авторизации редиректнет на страницу желаемого 
+        # товара и он сможет продолжить покупку именно этого товара.
+        return HttpResponseRedirect(reverse('mainapp:product_page', args=[pk]))
     product = get_object_or_404(Product, pk=pk)
-    basket = BasketItem.objects.filter(user=request.user, product=product).first()
-    # basket = request.user.basketitem_set.filter(product=pk).first()
+    # basket = BasketItem.objects.filter(user=request.user, product=product).first()
+    basket = request.user.basketitem_set.filter(product=pk).first()
 
     if not basket:
         basket = BasketItem(user=request.user, product=product)  # not in db

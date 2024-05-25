@@ -161,7 +161,7 @@ class CatalogView(ListView):
             'categories': get_menu(),
             'category': category,
             'products': page_obj,
-            'page_obj': page_obj,  # Добавлена эта строка
+            'page_obj': page_obj,
         })
 
         return context
