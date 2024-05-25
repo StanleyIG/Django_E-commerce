@@ -6,6 +6,8 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, T
 from basketapp.models import BasketItem
 from mainapp.models import Product
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.safestring import mark_safe
 
 
 @login_required
@@ -32,13 +34,14 @@ def add(request, pk):
         return HttpResponseRedirect(reverse('mainapp:product_page', args=[pk]))
     product = get_object_or_404(Product, pk=pk)
     # basket = BasketItem.objects.filter(user=request.user, product=product).first()
-    basket = request.user.basketitem_set.filter(product=pk).first()
+    basket = request.user.user_basket.filter(product=pk).first()
 
     if not basket:
         basket = BasketItem(user=request.user, product=product)  # not in db
 
     basket.quantity += 1
     basket.save()
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
