@@ -1730,15 +1730,16 @@ form img:active {
 }
 
 .slider-product {
-	width: 570px;
-	height: 570px;
+	width: 370px;
+	height: 370px;
 }
 
 .slider-control {
 	width: 420px;
 	height: 70px;
+	/* margin: 0px auto auto 0px; */
 	margin: 11px auto 0px;
-	padding-left: 150px
+	padding-left: 100px
 }
 
 .slider-control .block {
@@ -1747,6 +1748,10 @@ form img:active {
 	position: relative;
 	float: left;
 	margin-right: 10px;
+}
+
+.slider-control .block a img {
+    width: 70px;
 }
 
 .slider-control a .text {
@@ -1863,7 +1868,7 @@ form img:active {
 
 .related .title .explore {
 	margin-top: 30px;
-	margin-left: 620px;
+	margin-left: 600px;
 }
 
 .related-products {
