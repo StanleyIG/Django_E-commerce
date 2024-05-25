@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
 from mainapp.models import ProductCategory, Product
+from django.core.paginator import Paginator
 
 
 locations = [
@@ -115,25 +116,85 @@ class ProductDetailView(TemplateView):
 #     return render(request, 'mainapp/catalog.html', context)
 
 
-class CatalogView(TemplateView):
-    template_name = 'mainapp/catalog.html'
+# class CatalogView(TemplateView):
+#     template_name = 'mainapp/catalog.html'
 
-    def get_context_data(self, pk=None, **kwargs):
-        context = super(CatalogView, self).get_context_data(**kwargs)
-        if pk == 0:
+#     def get_context_data(self, pk=None, **kwargs):
+#         context = super(CatalogView, self).get_context_data(**kwargs)
+#         if pk == 0:
+#             category = {'pk': 0, 'name': 'Все'}
+#             products = Product.objects.all()
+#         else:
+#             category = get_object_or_404(ProductCategory, pk=pk)
+#             products = Product.objects.filter(category=category)
+#         context.update({
+#             'page_title': 'каталог',
+#             'categories': get_menu(),
+#             'category': category,
+#             'products': products,
+#         })
+
+#         return context
+
+
+class CatalogView(ListView):
+    model = Product
+    template_name = 'mainapp/catalog.html'
+    paginate_by = 3
+
+    def get_context_data(self, *kwargs):
+        context = super().get_context_data(*kwargs)
+        category_pk = self.kwargs.get('pk')
+        if category_pk == 0:
             category = {'pk': 0, 'name': 'Все'}
             products = Product.objects.all()
         else:
-            category = get_object_or_404(ProductCategory, pk=pk)
+            category = get_object_or_404(ProductCategory, pk=category_pk)
             products = Product.objects.filter(category=category)
+
+        paginator = Paginator(products, self.paginate_by)
+        page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+
         context.update({
             'page_title': 'каталог',
             'categories': get_menu(),
             'category': category,
-            'products': products,
+            'products': page_obj,
+            'page_obj': page_obj,  # Добавлена эта строка
         })
 
         return context
+
+
+# class CatalogView(ListView):
+#     model = Product
+#     template_name = 'mainapp/catalog.html'
+#     paginate_by = 2
+
+#     def get_context_data(self, *kwargs):
+#         context = super().get_context_data(*kwargs)
+#         category_pk = self.kwargs.get('pk')
+#         if category_pk == 0:
+#             category = {'pk': 0, 'name': 'Все'}
+#             products = Product.objects.all()
+#         else:
+#             category = get_object_or_404(ProductCategory, pk=category_pk)
+#             products = Product.objects.filter(category=category)
+
+#         paginator = Paginator(products, self.paginate_by)
+#         page_number = self.request.GET.get('page', 1)
+#         page_obj = paginator.get_page(page_number)
+#         context.update({
+#             'page_title': 'каталог',
+#             'categories': get_menu(),
+#             'category': category,
+#             'products': page_obj,
+#             'num_pages': paginator.num_pages,
+#         })
+
+#         return context
+
 
 
 class ContactView(TemplateView):
