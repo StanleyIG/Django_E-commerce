@@ -147,10 +147,33 @@ class CatalogView(ListView):
         category_pk = self.kwargs.get('pk')
         if category_pk == 0:
             category = {'pk': 0, 'name': 'Все'}
-            products = Product.objects.all()
+            # products2 = ProductCategory.objects.prefetch_related('products') # Почему это запрос не работает не понятно, начиная с джанго 4.0
+            # products2 = ProductCategory.objects.prefetch_related('product_set')
+            # print(products2)
+            products = Product.objects.all().prefetch_related('category')
         else:
             category = get_object_or_404(ProductCategory, pk=category_pk)
-            products = Product.objects.filter(category=category)
+            # в шаблоне каталог я добавил тэг который выводит категорию в карточках товара
+            # <p>{{ product.category.name }}</p>
+            # products = Product.objects.filter(category=category)
+            # в первом запросе я получу все продукты, но если обращаться к <p>{{ product.category.name }}</p>
+            # то он дополнительно сделает ещё несколько запросов для каждого продукта чтобы получить наименование категории
+            # SELECT "mainapp_productcategory"."id",
+            #     "mainapp_productcategory"."name",
+            #     "mainapp_productcategory"."description"
+            # FROM "mainapp_productcategory"
+            # WHERE "mainapp_productcategory"."id" = 1
+            # LIMIT 21
+            products = Product.objects.filter(category=category).prefetch_related('category')
+            # если мне нужно дополнительно выводить информацию по категории продукта в карточках продукта, то можно сделать запрос через 
+            # prefetch_related() чтобы загрузить список категорий и товаров в 2 запроса и не делать в дальнейшем доп запросы для категорий.
+            # products2 = ProductCategory.objects.filter(pk=category_pk).prefetch_related('product_set')
+            # В данном случае prefetch_related('category') предварительно загружает связанные объекты ProductCategory 
+            # для всех объектов Product, отфильтрованных по category.
+            # print(products2) # QuerySet категорий
+            # print(products2[0].name) # категория <name>
+            # print(products2[0].product_set.all()) # QuerySet продуктов. Все продукты из категории <name>
+
 
         paginator = Paginator(products, self.paginate_by)
         page_number = self.request.GET.get('page', 1)
@@ -165,6 +188,39 @@ class CatalogView(ListView):
         })
 
         return context
+
+
+# class CatalogView(ListView):
+#     model = Product
+#     template_name = 'mainapp/catalog.html'
+#     paginate_by = 3
+
+#     def get_context_data(self, *kwargs):
+#         context = super().get_context_data(*kwargs)
+#         category_pk = self.kwargs.get('pk')
+#         if category_pk == 0:
+#             category = {'pk': 0, 'name': 'Все'}
+#             products = Product.objects.all()
+#         else:
+#             # category = get_object_or_404(ProductCategory, pk=category_pk)
+#             category = get_object_or_404(ProductCategory, pk=category_pk)
+#             products2 = ProductCategory.objects.filter(id=category_pk).prefetch_related('product')
+#             print(products2)
+#             products = Product.objects.filter(category=category)
+
+#         paginator = Paginator(products, self.paginate_by)
+#         page_number = self.request.GET.get('page', 1)
+#         page_obj = paginator.get_page(page_number)
+
+#         context.update({
+#             'page_title': 'каталог',
+#             'categories': get_menu(),
+#             'category': category,
+#             'products': page_obj,
+#             'page_obj': page_obj,
+#         })
+
+#         return context
 
 
 # class CatalogView(ListView):
