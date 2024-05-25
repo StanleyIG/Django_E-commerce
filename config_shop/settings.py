@@ -15,6 +15,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import configparser
 
+
 load_dotenv()
 
 config = configparser.ConfigParser()
@@ -33,7 +34,15 @@ SECRET_KEY = 'django-insecure-p=!*etu(koo!2vs(^4cs-u2_pun6hn$1y#sh!lxdlne6za23%=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]'] #['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]']
+ALLOWED_HOSTS += ['*']
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost',
+    '[::1]',]
+
+
 
 
 # Application definition
@@ -53,6 +62,7 @@ INSTALLED_APPS = [
     # 'authapp',
     'mainapp',
     'basketapp',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +73,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'mainapp.middleware.ExceptionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'config_shop.middleware.CacheIpAddressMiddleware',
+    'mainapp.middleware.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config_shop.urls'

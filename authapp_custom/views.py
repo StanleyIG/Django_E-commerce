@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -11,6 +12,7 @@ from authapp_custom.models import CustomUser
 from authapp_custom import forms
 from django.core.signing import BadSignature
 from .utilities import signer
+from django.core.cache import cache
 
 
 class CustomLoginView(LoginView):
@@ -35,6 +37,24 @@ class CustomLoginView(LoginView):
                 mark_safe(f"Неверный логин или пароль:<br>{msg}"),
             )
         return self.render_to_response(self.get_context_data(form=form))
+    
+    def get(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            ip_address = cache.get(f'anonymous_user_ip_address_{request.META["REMOTE_ADDR"]}')
+            # print(ip_address)
+            # тут проверка на то сколько раз пользователь заходит на страницу, если больше 0, то отправится сообщение.
+            # TLC кэша 100 секунд.
+            if ip_address and ip_address[1] > 0:
+                # print(ip_address) # 127.0.0.1 На всякий случай сделал middleware CacheIpAddressMiddlewareкоторый ловит ip адрес и записывает его в кэш
+                # if ip_address == '127.0.0.1':
+                #     raise Exception # тут я поднимаю исходный класс ошибки всех ошибок, и тем самым вызвал другой свой middleware ExceptionMiddleware
+                #                     # из mainapp. Отобразится красивая страничка с 500 ошибкой.
+
+                # По факту это всё не несёт какой-то конкретной практичесской полезности, но в целом middleware это очень полезная штука.
+                messages.add_message(request, messages.INFO, mark_safe('Пожалуйста, войдите в систему, чтобы продолжить'))
+        return super().get(request, *args, *kwargs)
+    
+
 
 
 class CustomLogoutView(LogoutView):
@@ -72,7 +92,7 @@ def user_activate(request, sign):
         template = 'authapp_custom/activation_done.html'
         user.is_active = True
         user.save()
-    return render(request, template)
+    return render(request, template, {"page_title": "Активация"})
 
 
 class ProfileEditView(UserPassesTestMixin, UpdateView):
