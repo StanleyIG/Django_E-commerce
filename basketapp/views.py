@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect
+from unittest import loader
+from django.template.loader import render_to_string
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -29,7 +31,7 @@ def add(request, pk):
     # если пользователя нет в системе, то его редиректнет к странице входа.
     if 'auth' in request.META.get('HTTP_REFERER'):
         # print(request.META.get('HTTP_REFERER').split('/')[3])
-        # После успешной авторизации редиректнет на страницу желаемого 
+        # После успешной авторизации редиректнет на страницу желаемого
         # товара и он сможет продолжить покупку именно этого товара.
         return HttpResponseRedirect(reverse('mainapp:product_page', args=[pk]))
     product = get_object_or_404(Product, pk=pk)
@@ -50,4 +52,29 @@ def delete(request, pk):
     get_object_or_404(BasketItem, pk=pk).delete()
     return HttpResponseRedirect(reverse('basket:index'))
 
+
+def change(request, pk, quantity):
+    basket_item = BasketItem.objects.filter(pk=pk).first()
+    if quantity == 0:
+        basket_item.delete()
+    else:
+        basket_item.quantity = quantity
+        basket_item.save()
     
+    basket_items = BasketItem.objects.filter(user=request.user).order_by('add_datetime')
+    context = {
+        'basket_items': basket_items #request.user.user_basket.all(),
+    }
+
+    basket_items = render_to_string(
+        'basketapp/inc/inc__basket_items.html',
+        context=context,
+        request=request,
+    )
+
+    return JsonResponse({
+        'basket_items': basket_items,
+        # 'basket_cost': user.basket_cost(),
+        # 'basket_total_quantity': user.basket_total_quantity(),
+        # 'basket_item': basket_item,
+    })

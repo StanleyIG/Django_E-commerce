@@ -40,18 +40,18 @@ class CustomLoginView(LoginView):
     
     def get(self, request, *args, **kwargs):
         if request.user.is_anonymous:
-            ip_address = cache.get(f'anonymous_user_ip_address_{request.META["REMOTE_ADDR"]}')
-            # print(ip_address)
-            # тут проверка на то сколько раз пользователь заходит на страницу, если больше 0, то отправится сообщение.
-            # TLC кэша 100 секунд.
-            if ip_address and ip_address[1] > 0:
-                # print(ip_address) # 127.0.0.1 На всякий случай сделал middleware CacheIpAddressMiddlewareкоторый ловит ip адрес и записывает его в кэш
-                # if ip_address == '127.0.0.1':
-                #     raise Exception # тут я поднимаю исходный класс ошибки всех ошибок, и тем самым вызвал другой свой middleware ExceptionMiddleware
-                #                     # из mainapp. Отобразится красивая страничка с 500 ошибкой.
+            # ip_address = cache.get(f'anonymous_user_ip_address_{request.META["REMOTE_ADDR"]}')
+            # # print(ip_address)
+            # # тут проверка на то сколько раз пользователь заходит на страницу, если больше 0, то отправится сообщение.
+            # # TLC кэша 100 секунд.
+            # if ip_address and ip_address[1] > 0:
+            #     # print(ip_address) # 127.0.0.1 На всякий случай сделал middleware CacheIpAddressMiddlewareкоторый ловит ip адрес и записывает его в кэш
+            #     # if ip_address == '127.0.0.1':
+            #     #     raise Exception # тут я поднимаю исходный класс ошибки всех ошибок, и тем самым вызвал другой свой middleware ExceptionMiddleware
+            #     #                     # из mainapp. Отобразится красивая страничка с 500 ошибкой.
 
-                # По факту это всё не несёт какой-то конкретной практичесской полезности, но в целом middleware это очень полезная штука.
-                messages.add_message(request, messages.INFO, mark_safe('Пожалуйста, войдите в систему, чтобы продолжить'))
+            #     # По факту это всё не несёт какой-то конкретной практичесской полезности, но в целом middleware это очень полезная штука.
+            messages.add_message(request, messages.INFO, mark_safe('Пожалуйста, войдите в систему, чтобы продолжить'))
         return super().get(request, *args, *kwargs)
     
 
