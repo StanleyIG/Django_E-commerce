@@ -19,7 +19,7 @@ def index(request):
     # basket_items = request.user.basketitem_set.all()  # SELECT * FROM basket
     basket_items = request.user.user_basket.all()  # SELECT * FROM basket
     context = {
-        'page_title': 'корзина',
+        'title': 'корзина',
         'basket_items': basket_items,
     }
     return render(request, 'basketapp/index.html', context)
@@ -50,7 +50,23 @@ def add(request, pk):
 @login_required
 def delete(request, pk):
     get_object_or_404(BasketItem, pk=pk).delete()
-    return HttpResponseRedirect(reverse('basket:index'))
+    basket_items = BasketItem.objects.filter(user=request.user).order_by('add_datetime')
+    context = {
+        'basket_items': basket_items #request.user.user_basket.all(),
+    }
+
+    basket_items = render_to_string(
+        'basketapp/inc/inc__basket_items.html',
+        context=context,
+        request=request,
+    )
+
+    return JsonResponse({
+        'basket_items': basket_items,
+        # 'basket_cost': request.user.basket_cost(),
+        # 'basket_total_quantity': request.user.basket_total_quantity(),
+    })
+    #return HttpResponseRedirect(reverse('basket:index'))
 
 
 def change(request, pk, quantity):
@@ -74,7 +90,7 @@ def change(request, pk, quantity):
 
     return JsonResponse({
         'basket_items': basket_items,
-        # 'basket_cost': user.basket_cost(),
-        # 'basket_total_quantity': user.basket_total_quantity(),
+        # 'basket_cost': request.user.basket_cost(),
+        # 'basket_total_quantity': request.user.basket_total_quantity(),
         # 'basket_item': basket_item,
     })
