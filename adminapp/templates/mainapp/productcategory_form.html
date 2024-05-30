@@ -1,0 +1,20 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block menu %}
+{% endblock %}
+
+{% block container %}
+<div class="new_category_form">
+    <div class="center">
+        <form class="mt-2" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="form-control" type="submit" value="сохранить">
+        </form>
+        <a href="{% url 'my_admin:categories_read' %}" class="btn btn-primary form-control last">
+            к списку категорий
+        </a>
+    </div>
+</div>
+{% endblock %}

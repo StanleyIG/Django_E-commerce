@@ -1,0 +1,42 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/fontawesome.all.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/butttons.css' %}">
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script src="{% static 'js/fontawesome.all.min.js' %}"></script>
+{% endblock js %}
+{% block menu %}
+{% endblock %}
+
+{% block container %}
+<!-- <div class="row justify-content-around align-items-center" style="height: 100vh; margin: 0px"> -->
+<!-- <div class="row justify-content-around align-items-center" style="height: 100vh; margin: 0px;"> -->
+    <div class="center" style="width: 550px;">
+        <form class="mt-2" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <!-- <input class="form-control btn btn-primary" type="submit" value="сохранить"> -->
+            <div class="btn-group btn-block" role="group">
+                <button type="submit" class="btn btn-success">
+                    сохранить
+                </button>
+
+                <button type="button" onclick="location.href='{% url 'my_admin:category_products' category.pk %}'"
+                    class="btn btn-primary">
+                    На главную
+                </button>
+            </div>
+        </form>
+    </div>
+<!-- </div> -->
+{% endblock %}
