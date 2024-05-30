@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     # 'authapp',
     'mainapp',
     'basketapp',
+    'adminapp',
     'debug_toolbar',
 ]
 
@@ -75,7 +76,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'config_shop.middleware.CacheIpAddressMiddleware',
-    'mainapp.middleware.ExceptionMiddleware',
+    #'mainapp.middleware.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config_shop.urls'
@@ -120,7 +121,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         "HOST": "localhost",
         'PORT': '5432',
-        # 'ATOMIC_REQUESTS': True,
+        'ATOMIC_REQUESTS': True,
     }
 }
 

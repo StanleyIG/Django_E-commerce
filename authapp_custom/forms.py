@@ -16,8 +16,8 @@ def resize_uploaded_image(image, max_width, max_height):
     """
     size = (max_width, max_height)
 
-    # Если загруженный файл находится в памяти
     if isinstance(image, InMemoryUploadedFile):
+        print('InMemoryUploadedFile')
         memory_image = BytesIO(image.read())
         pil_image = PilImage.open(memory_image)
         img_format = os.path.splitext(image.name)[1][1:].upper()
@@ -29,8 +29,26 @@ def resize_uploaded_image(image, max_width, max_height):
         new_image = BytesIO()
         pil_image.save(new_image, format=img_format)
 
-        new_image = ContentFile(new_image.getvalue())
-        return InMemoryUploadedFile(new_image, None, image.name, image.content_type, None, None)
+        #new_image = ContentFile(new_image.getvalue())
+        #return InMemoryUploadedFile(new_image, None, image.name, image.content_type, None, None)
+        image.file = new_image
+
+    # Если загруженный файл находится в памяти
+    # if isinstance(image, InMemoryUploadedFile):
+    #     print('InMemoryUploadedFile')
+    #     memory_image = BytesIO(image.read())
+    #     pil_image = PilImage.open(memory_image)
+    #     img_format = os.path.splitext(image.name)[1][1:].upper()
+    #     img_format = 'JPEG' if img_format == 'JPG' else img_format
+
+    #     if pil_image.width > max_width or pil_image.height > max_height:
+    #         pil_image.thumbnail(size)
+
+    #     new_image = BytesIO()
+    #     pil_image.save(new_image, format=img_format)
+
+    #     new_image = ContentFile(new_image.getvalue())
+    #     return InMemoryUploadedFile(new_image, None, image.name, image.content_type, None, None)
 
     # Если загруженный файл находится на диске
     elif isinstance(image, TemporaryUploadedFile):
@@ -55,7 +73,7 @@ class WidgetMixin:
     field_placeholders = {
         "username": "введите логин или email",
         "email": "Email должен быть уникальным",
-        "password": 'введите пароль',
+        "password1": 'введите пароль',
         "password1": 'введите пароль',
         "password2": 'подтвердите пароль'
 
@@ -68,7 +86,7 @@ class WidgetMixin:
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = f'form-control {field_name}'
             field.widget.attrs.update(self.widget_attrs)
-
+            field.help_text = ''
             # чекаю есть ли placeholder для данного поля, если есть, то применяю его
             placeholder = self.field_placeholders.get(field_name)
             if isinstance(self, CustomUserCreationForm):
@@ -116,8 +134,8 @@ class CustomLoginView(WidgetMixin, AuthenticationForm):
 
 
 class CustomUserChangeForm(forms.ModelForm):
-    IMAGE_WIDTH = 350
-    IMAGE_HEIGHT = 350
+    IMAGE_WIDTH = 100
+    IMAGE_HEIGHT = 100
 
     class Meta:
         model = get_user_model()
@@ -137,9 +155,9 @@ class CustomUserChangeForm(forms.ModelForm):
             if os.path.exists(self.instance.avatar.path):
                 os.remove(self.instance.avatar.path)
         avatar = self.cleaned_data.get(arg_as_str)
-        print(type(avatar))
+        #print(type(avatar))
         # уменьшить размер, если был передан объект файла изображения
-        resize_uploaded_image(avatar, self.IMAGE_WIDTH, self.IMAGE_HEIGHT)
+        #resize_uploaded_image(avatar, self.IMAGE_WIDTH, self.IMAGE_HEIGHT)
         return avatar #self.cleaned_data.get(arg_as_str)
 
     def clean_age(self):

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from time import time
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -6,6 +7,9 @@ from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
 from PIL import Image
+from io import BytesIO, StringIO
+
+from config_shop.settings import MEDIA_ROOT
 
 
 def users_avatars_path(instance, filename):
@@ -65,10 +69,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
 
-    def save(self, *args, **kwargs):
-        if self.is_superuser:
-            self.is_active = True
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.is_superuser:
+    #         self.is_active = True
+    #     super().save(*args, **kwargs)
 
     def clean(self):
         super().clean()
@@ -94,3 +98,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def basket_total_quantity(self):
         return sum(item.quantity for item in self.user_basket.all())
+    
