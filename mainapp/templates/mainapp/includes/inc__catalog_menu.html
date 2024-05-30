@@ -6,6 +6,25 @@
                 все
             </a>
         </li>
+        {% if product %}
+        {% for category in categories %}
+            <li>
+                {% if request.resolver_match.url_name == 'product_page' %}
+                <!-- <p>{{request.resolver_match.kwargs.pk}}</p>
+                <p>{{product.category.id}}</p> -->
+                <a href="{% url 'mainapp:catalog' pk=category.pk %}"
+                   class="{% if product.category.id == category.pk %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+                {% else %}
+                <a href="{% url 'mainapp:catalog' pk=category.pk %}"
+                   class="{% if request.resolver_match.kwargs.pk|add:0 == category.pk %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        {% else %}
         {% for category in categories %}
             <li>
                 <a href="{% url 'mainapp:catalog' pk=category.pk %}"
@@ -14,5 +33,6 @@
                 </a>
             </li>
         {% endfor %}
+        {% endif %}
     </ul>
 </div>

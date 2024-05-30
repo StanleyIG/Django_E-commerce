@@ -1929,3 +1929,170 @@ form img:active {
 .related-products a:hover .text {
 	display: block;
 }
+
+/* админка */
+
+.admin_container .menu span {
+    margin-left: 10px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #111;
+}
+
+.admin_container .h2 {
+    margin-top: 10px;
+}
+
+.admin_menu {
+    display: block;
+    left: 15px;
+    top: 20px;
+    height: 40px;
+    width: 100%;
+}
+
+.admin_menu ul.menu{
+    display: block;
+    float: none;
+    width: 550px;
+    height: 50px;
+    margin: auto;
+    color: #555;
+}
+
+.users_list {
+    margin-left: 150px;
+}
+
+.users_list a {
+    color: #555;
+    text-decoration: none;
+}
+
+.users_list .new_user {
+    margin-left: 30px;
+}
+
+.users_list button {
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    height: 30px;
+    margin: 5px auto;
+    padding: 0 15px;
+}
+
+.user_record {
+    height: 125px;
+    margin: 15px auto;
+    position: relative;
+}
+
+.user_record.not_active {
+    opacity: 0.5;
+}
+
+.user_record img {
+    display: block;
+    float: left;
+    height: 125px;
+    border-radius: 25px;
+}
+
+.user_record .user_name {
+    display: block;
+    float: left;
+    margin-top: 15px;
+    margin-left: 25px;
+    width: 175px;
+}
+
+.user_record .user_name a {
+    color: #555;
+}
+
+.user_record .user_name p {
+    /*font-weight: bold;*/
+    margin: 10px auto;
+}
+
+.user_record .user_email {
+    display: block;
+    float: left;
+    margin-top: 40px;
+    margin-left: 25px;
+    width: 175px;
+}
+
+.user_record .user_age {
+    display: block;
+    float: left;
+    margin-top: 40px;
+    margin-left: 25px;
+    width: 45px;
+}
+
+.user_record .user_role {
+    display: block;
+    float: left;
+    margin-top: 15px;
+    margin-left: 25px;
+    width: 125px;
+}
+
+.user_record .user_lastlogin {
+    display: block;
+    float: left;
+    margin-top: 40px;
+    margin-left: 25px;
+    width: 175px;
+}
+
+
+.login {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 25px;
+    overflow: hidden;
+    width: 28em;
+    min-width: 500px;
+    margin: 100px auto;
+       
+    position: relative;
+    display: block;
+}
+
+.login .head {
+    margin: 15px auto;
+}
+
+.login .form-control[type="submit"] {
+    margin: 10px auto;
+}
+
+.login button {
+    border: 1px solid #eaeaea;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.login button.last {
+    margin-bottom: 25px;
+}
+
+.login button a, .login button a:hover {
+    border: 1px solid #eaeaea;
+    color: #555;
+    text-decoration: none;
+}
+
+.login form {
+    margin-bottom: 10px;
+}
+
+.login div.user_avatar {
+    position: fixed;
+    left: 175px;
+    top: 200px;
+}

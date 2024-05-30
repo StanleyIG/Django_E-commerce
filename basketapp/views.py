@@ -10,6 +10,7 @@ from mainapp.models import Product
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.safestring import mark_safe
+from django.db import transaction
 
 
 @login_required
@@ -35,14 +36,31 @@ def add(request, pk):
         # товара и он сможет продолжить покупку именно этого товара.
         return HttpResponseRedirect(reverse('mainapp:product_page', args=[pk]))
     product = get_object_or_404(Product, pk=pk)
+    quantity_product = product.quantity
     # basket = BasketItem.objects.filter(user=request.user, product=product).first()
     basket = request.user.user_basket.filter(product=pk).first()
 
     if not basket:
         basket = BasketItem(user=request.user, product=product)  # not in db
-
-    basket.quantity += 1
-    basket.save()
+    
+    # в setiings для DATABASES установлена глобальная настройка 'ATOMIC_REQUESTS': True, что означет 
+    # использовать атомарные транзакции для всех контроллеров.
+    # Тут я продемонтстрировал пример того как это работает.
+    # Пользователь добавляет товар в корзину, в корзине quantity увеличивается, а в продуктах quantity уменьшается.
+    # Я намеренно создал ошибку присвоив ключу связанной таблицы Category строкой значение product.category = 'hello'.
+    # Это подняло ошибку, сработал ExceptionMiddleware и отренедерилась страничка с 500 кодом ошибки.
+    # Без 'ATOMIC_REQUESTS': True, либо без дикоратора либо без менеджера контекста, несмотря на ошибку первый запрос на сохранение
+    # basket.save() сработал бы, что привело бы к последующим ошибкам, конфликтам, расинхронизации и несостыковкам данных.
+    # if basket.quantity < quantity_product:
+        # цепочка запросов делается в одной тразакции, если будет ошибка в одном запросе, то откатятся все.
+    if quantity_product:
+        basket.quantity += 1
+        product.quantity -= 1
+        basket.save()
+        # product.category = 'hello'
+        product.save()
+    else:
+        product.delete()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
