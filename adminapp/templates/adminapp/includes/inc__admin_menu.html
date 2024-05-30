@@ -6,7 +6,7 @@
         <a href="{% url 'my_admin:index' %}">пользователи</a>
     </li>
     <li>
-        <a href="{#% url 'myadmin:productcategories' %#}">
+        <a href="{% url 'my_admin:categories_read' %}">
             категории
             {% if category %}
                 : {{ category.name }}

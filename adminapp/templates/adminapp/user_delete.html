@@ -1,0 +1,30 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block menu %}
+{% endblock %}
+
+{% block container %}
+    <div class="user_delete">
+        Уверены, что хотите удалить <b>{{ user_to_delete.username }}
+        {% if user_to_delete.first_name %}
+            ({{ user_to_delete.first_name|title }}
+                {% if user_to_delete.last_name %}
+                    {{ user_to_delete.last_name|title }}
+                {% endif %})
+        {% endif %}</b>?
+        <form method="post">
+            {% csrf_token %}
+            <div class="btn-group btn-block" role="group">
+                <button type="submit" class="btn btn-danger">
+                    удалить
+                </button>     
+                <button type="button" onclick="location.href='{% url 'my_admin:index' %}'"   class="btn btn-success">
+                  отмена
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

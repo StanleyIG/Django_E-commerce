@@ -1,0 +1,23 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block menu %}
+{% endblock %}
+
+{% block container %}
+<div class="user_delete">
+    Уверены, что хотите удалить категорию <b>{{ object.name }}</b>?
+    <form method="post">
+        {% csrf_token %}
+        <div class="btn-group btn-block" role="group">
+            <button type="submit" class="btn btn-danger">
+                удалить
+            </button>
+            <button type="button" onclick="location.href='{% url 'my_admin:categories_read' %}'"
+                class="btn btn-success">
+                отмена
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
