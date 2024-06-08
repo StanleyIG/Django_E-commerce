@@ -22,4 +22,5 @@ urlpatterns = [
     path('category/<int:category_pk>/product/create/', adminapp.product_create, name='product_create'),
     path('category/product/update/<int:pk>', adminapp.product_update, name='product_update'),
     path('category/product/delete/<int:pk>', adminapp.product_delete, name='product_delete'),
+    path('category/product/<int:product_pk>/detail/', adminapp.ProductDetail.as_view(), name='product_read'),
 ]

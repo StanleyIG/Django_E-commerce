@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'config_shop.middleware.CacheIpAddressMiddleware',
+    # 'config_shop.middleware.CacheIpAddressMiddleware',
     #'mainapp.middleware.ExceptionMiddleware',
 ]
 

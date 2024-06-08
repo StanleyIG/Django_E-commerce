@@ -34,13 +34,6 @@ class PageTitleMixin:
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=None, **kwargs)
         data['page_title'] = self.page_title
-        # users_list = get_user_model().objects.all().order_by(
-        #     '-is_active', '-is_superuser', '-is_staff', 'username'
-        # )
-        # context = {
-        #     'users_list': users_list
-        # }
-        # data.update(context)
         return data
 
 
@@ -246,6 +239,7 @@ def product_delete(request, pk):
     return render(request, 'adminapp/product_delete.html', context)
 
 
-class ProductDetail(DetailView):
+class ProductDetail(OnlySuperUserMixin, PageTitleMixin, DetailView):
+    page_title = 'админка/продукты/подробнее'
     model = Product
     pk_url_kwarg = 'product_pk'
