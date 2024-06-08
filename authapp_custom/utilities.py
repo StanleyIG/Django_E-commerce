@@ -4,6 +4,8 @@ from django.core.signing import Signer
 from django.conf import settings
 from authapp_custom.models import CustomUser
 from django.core.mail import send_mail
+# from config_shop.settings import USER_EXPIRES_TIMEDELTA
+# from django.utils.timezone import now
 
 
 signer = Signer()
@@ -31,3 +33,6 @@ def send_activation_notification_user_id(email, username):
     body_text = render_to_string('email/activation_letter_body.txt', context)
     user.email_user(subject, body_text)
 
+
+# def get_activation_key_expires():
+#     return now() + USER_EXPIRES_TIMEDELTA

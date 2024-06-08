@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -227,6 +228,10 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = "mainapp:index"
 LOGOUT_REDIRECT_URL = "mainapp:index"
+
+
+# USER_EXPIRES_TIMEDELTA = timedelta(hours=48)
+USER_EXPIRES_TIMEDELTA = timedelta(seconds=100)
 
 # Django bootstrap 5
 
