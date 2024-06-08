@@ -95,6 +95,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'mainapp.context_processors.catalog_menu', # для проброса шаблонного тега с категорями товаров.
             ],
         },
     },
