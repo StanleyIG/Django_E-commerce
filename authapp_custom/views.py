@@ -117,11 +117,3 @@ class ProfileEditView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("auth:profile_edit", args=[self.request.user.pk])
-
-
-@receiver(post_save, sender=CustomUser)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        CustomUserProfile.objects.create(user=instance)
-    else:
-        instance.customuserprofile.save()
