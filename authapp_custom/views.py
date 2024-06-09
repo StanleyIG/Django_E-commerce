@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -39,13 +41,12 @@ class CustomLoginView(LoginView):
                 mark_safe(f"Неверный логин или пароль:<br>{msg}"),
             )
         return self.render_to_response(self.get_context_data(form=form))
-    
+
     def get(self, request, *args, **kwargs):
         if request.user.is_anonymous:
-            messages.add_message(request, messages.INFO, mark_safe('Пожалуйста, войдите в систему, чтобы продолжить'))
+            messages.add_message(request, messages.INFO, mark_safe(
+                'Пожалуйста, войдите в систему, чтобы продолжить'))
         return super().get(request, *args, *kwargs)
-    
-
 
 
 class CustomLogoutView(LogoutView):
@@ -99,25 +100,24 @@ class ProfileEditView(UserPassesTestMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Профиль"
-        context['profile_form'] = self.profile_form
+        context['profile_form'] = self.profile_form(
+            instance=self.object.customuserprofile)
         return context
-    
+
     def form_valid(self, form):
         self.object = form.save()
-        profile_form = self.profile_form(self.request.POST, instance=self.object.customuserprofile)
+        profile_form = self.profile_form(
+            self.request.POST, instance=self.object.customuserprofile)
         if profile_form.is_valid():
             profile_form.save()
         return HttpResponseRedirect(self.get_success_url())
-    
-    # def form_valid(self, form, **kwargs):
-    #     return super().form_valid(form, **kwargs)
 
     def test_func(self):
         return True if self.request.user.pk == self.kwargs.get("pk") else False
 
     def get_success_url(self):
         return reverse_lazy("auth:profile_edit", args=[self.request.user.pk])
-    
+
 
 @receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
