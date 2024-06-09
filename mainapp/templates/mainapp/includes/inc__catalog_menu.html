@@ -7,7 +7,7 @@
             </a>
         </li>
         {% if product %}
-        {% for category in categories %}
+        {% for category in catalog_menu %}
             <li>
                 {% if request.resolver_match.url_name == 'product_page' %}
                 <!-- <p>{{request.resolver_match.kwargs.pk}}</p>
@@ -25,7 +25,7 @@
             </li>
         {% endfor %}
         {% else %}
-        {% for category in categories %}
+        {% for category in catalog_menu %}
             <li>
                 <a href="{% url 'mainapp:catalog' pk=category.pk %}"
                    class="{% if request.resolver_match.kwargs.pk|add:0 == category.pk %}active{% endif %}">

@@ -8,8 +8,15 @@ from django.core.mail import send_mail
 from django.db import models
 from PIL import Image
 from io import BytesIO, StringIO
-
 from config_shop.settings import MEDIA_ROOT
+from config_shop.settings import USER_EXPIRES_TIMEDELTA
+from django.utils.timezone import now
+# from authapp_custom.utilities import get_activation_key_expires
+# from django.utils.timezone import now
+
+
+def get_activation_key_expires():
+    return now() + USER_EXPIRES_TIMEDELTA
 
 
 def users_avatars_path(instance, filename):
@@ -57,6 +64,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         help_text="Активен ли пользователь",
     )
     date_joined = models.DateTimeField("дата регистрации", auto_now_add=True)
+    activation_key_expires = models.DateTimeField(
+        default=get_activation_key_expires
+    )
 
     objects = UserManager()
 
@@ -69,10 +79,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
 
-    # def save(self, *args, **kwargs):
-    #     if self.is_superuser:
-    #         self.is_active = True
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.is_superuser:
+            self.is_active = True
+        super().save(*args, **kwargs)
+
+    def is_activation_key_expired(self):
+        return now() > self.activation_key_expires
 
     def clean(self):
         super().clean()
@@ -98,4 +111,21 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def basket_total_quantity(self):
         return sum(item.quantity for item in self.user_basket.all())
-    
+
+
+class CustomUserProfile(models.Model):
+    MALE = 'M'
+    FEMALE = 'W'
+
+    GENDER_CHOICES = (
+        (MALE, 'мужской'),
+        (FEMALE, 'женский'),
+    )
+
+    user = models.OneToOneField(
+        CustomUser, primary_key=True, on_delete=models.CASCADE)
+    tagline = models.CharField(verbose_name='теги', max_length=128, blank=True)
+    aboutMe = models.TextField(
+        verbose_name='о себе', max_length=512, blank=True)
+    gender = models.CharField(verbose_name='пол', max_length=1,
+                              choices=GENDER_CHOICES, blank=True)

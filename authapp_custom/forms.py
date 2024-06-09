@@ -1,6 +1,7 @@
 import os
 from django import forms
 from django.contrib.auth import get_user_model
+from authapp_custom.models import CustomUserProfile
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from django.core.exceptions import ValidationError
 from .signals import post_register
@@ -166,3 +167,12 @@ class CustomUserChangeForm(forms.ModelForm):
             if data < 10 or data > 100:
                 raise ValidationError("кажите действительный возраст!")
         return data
+    
+
+class CustomUserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUserProfile
+        #exclude = ('user',)
+        fields = ('tagline', 'aboutMe', 'gender')
+
+    

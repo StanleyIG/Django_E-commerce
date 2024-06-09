@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -95,6 +96,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'mainapp.context_processors.catalog_menu', # для проброса шаблонного тега с категорями товаров.
             ],
         },
     },
@@ -219,6 +221,7 @@ AUTHENTICATION_BACKENDS = [
     "authapp_custom.authenticate.EmailAuthBackend",
     #'authapp.backends.EmailBackend',
     "social_core.backends.github.GithubOAuth2",
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -226,6 +229,10 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = "mainapp:index"
 LOGOUT_REDIRECT_URL = "mainapp:index"
+
+
+# USER_EXPIRES_TIMEDELTA = timedelta(hours=48)
+USER_EXPIRES_TIMEDELTA = timedelta(seconds=100)
 
 # Django bootstrap 5
 
@@ -240,6 +247,9 @@ SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
 SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config.get('google', 'ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.get('google', 'SECRET')
 
 
 # Отправка почты
