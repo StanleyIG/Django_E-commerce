@@ -1,14 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
-from django.http import HttpRequest, HttpResponse
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views.generic import CreateView, UpdateView
-from authapp_custom.models import CustomUser
+from authapp_custom.models import CustomUser, CustomUserProfile
 from authapp_custom import forms
 from django.core.signing import BadSignature
 from .utilities import signer
@@ -92,14 +94,34 @@ def user_activate(request, sign):
 class ProfileEditView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     form_class = forms.CustomUserChangeForm
+    profile_form = forms.CustomUserProfileUpdateForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["page_title"] = "Профиль"
+        context['profile_form'] = self.profile_form
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        profile_form = self.profile_form(self.request.POST, instance=self.object.customuserprofile)
+        if profile_form.is_valid():
+            profile_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+    # def form_valid(self, form, **kwargs):
+    #     return super().form_valid(form, **kwargs)
 
     def test_func(self):
         return True if self.request.user.pk == self.kwargs.get("pk") else False
 
     def get_success_url(self):
         return reverse_lazy("auth:profile_edit", args=[self.request.user.pk])
+    
+
+@receiver(post_save, sender=CustomUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        CustomUserProfile.objects.create(user=instance)
+    else:
+        instance.customuserprofile.save()

@@ -35,6 +35,7 @@
     <form method="post" class="mt-2" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy }}
+      {{ profile_form|crispy }}
       <small>* обязательные поля для ввода</small>
       <!--<button type="submit" class="btn btn-danger btn-block" style="padding:8px;">-->
       <div class="btn-group btn-block" role="group">
@@ -48,13 +49,13 @@
         <!-- <a href="{% url 'mainapp:index' %}" type="button" class="custombtn-main-social">
           На главную
         </a> -->
-        <button type="button" onclick="location.href='{% url 'mainapp:index' %}'"   class="custombtn-main-social">
+        <button type="button" onclick="location.href='{% url 'mainapp:index' %}'" class="custombtn-main-social">
           На главную
         </button>
       </div>
     </form>
   </div>
 </div>
-{% endblock container %} 
+{% endblock container %}
 {% block footer%}
 {% endblock %}

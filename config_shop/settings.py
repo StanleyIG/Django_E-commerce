@@ -221,6 +221,7 @@ AUTHENTICATION_BACKENDS = [
     "authapp_custom.authenticate.EmailAuthBackend",
     #'authapp.backends.EmailBackend',
     "social_core.backends.github.GithubOAuth2",
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
