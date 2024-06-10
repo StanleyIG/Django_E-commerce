@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     # 'authapp',
     'mainapp',
     'basketapp',
+    'ordersapp',
     'adminapp',
     'debug_toolbar',
 ]
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     # 'config_shop.middleware.CacheIpAddressMiddleware',
     #'mainapp.middleware.ExceptionMiddleware',
 ]
@@ -274,6 +276,21 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
+
+# LOGIN_ERROR_URL = '/auth/login/'
+
+# SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+# SOCIAL_AUTH_VK_OAUTH2_SCOPE = [
+#     'email', 'bdate', 'sex', 'about'
+# ]
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#     'email',
+#     'profile',
+#     'openid',
+#     'https://www.googleapis.com/auth/plus.login',
+# ]
 
 # SOCIAL_AUTH_PIPELINE = (
 #     'social_core.pipeline.social_auth.social_details',
