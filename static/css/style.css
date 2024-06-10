@@ -172,13 +172,13 @@ body {
 .menu a:hover {
 	color: #212121;
 	font-weight: 700;
-	border-bottom: 3px solid #212121;
+	/* border-bottom: 3px solid #212121; */
 }
 
 .menu a:active {
 	color: #8c8c8c;
 	font-weight: 700;
-	border-bottom: 3px solid #212121;
+	/* border-bottom: 3px solid #212121; */
 }
 
 .search {
