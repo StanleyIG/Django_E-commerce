@@ -4,7 +4,7 @@
 {% block container %}
 {% include 'ordersapp/includes/inc__order_summary.html' %}
     <div class="order_form">
-        {% include 'ordersapp/includes/inc__order_actions.html' %}
+        <!-- {% include 'ordersapp/includes/inc__order_actions.html' %} -->
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -41,5 +41,6 @@
                     class="btn btn-secondary btn-round form-control last">
             <!-- {% include 'ordersapp/includes/inc__order_actions.html' %} -->
         </form>
+        {% include 'ordersapp/includes/inc__order_actions.html' %}
     </div>
 {% endblock %}
