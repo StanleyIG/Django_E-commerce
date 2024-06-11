@@ -52,6 +52,7 @@ class OrderCreate(CreateView):
             form.instance.user = self.request.user
             self.object = form.save()  # Order object
             if orderitems.is_valid():
+                #print(orderitems.instance)
                 orderitems.instance = self.object  # one to many
                 orderitems.save()
             self.request.user.user_basket.all().delete()
@@ -91,7 +92,6 @@ class OrderUpdate(UpdateView):
             self.object = form.save()
             if orderitems.is_valid():
                 orderitems.instance = self.object
-                # orderitems.order = self.object
                 orderitems.save()
 
         # удаляем пустой заказ

@@ -74,9 +74,12 @@ class WidgetMixin:
     field_placeholders = {
         "username": "введите логин или email",
         "email": "Email должен быть уникальным",
+        'password': 'введите пароль',
         "password1": 'введите пароль',
         "password1": 'введите пароль',
-        "password2": 'подтвердите пароль'
+        "password2": 'подтвердите пароль',
+        'name': 'название',
+        'description': 'Описание',
 
     }
 
@@ -86,6 +89,7 @@ class WidgetMixin:
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = f'form-control {field_name}'
+            field.widget.attrs['class'] = 'form-control'
             field.widget.attrs.update(self.widget_attrs)
             field.help_text = ''
             # чекаю есть ли placeholder для данного поля, если есть, то применяю его

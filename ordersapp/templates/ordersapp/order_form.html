@@ -1,8 +1,8 @@
 {% extends "ordersapp/base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block container %}
-    {% include 'ordersapp/includes/inc__order_summary.html' %}
+{% include 'ordersapp/includes/inc__order_summary.html' %}
     <div class="order_form">
         {% include 'ordersapp/includes/inc__order_actions.html' %}
         <form method="post">
@@ -38,7 +38,7 @@
                 {% endfor %}
             </table>
             <input type="submit" value="сохранить"
-                    class="btn btn-default btn-round form-control last">
+                    class="btn btn-secondary btn-round form-control last">
             <!-- {% include 'ordersapp/includes/inc__order_actions.html' %} -->
         </form>
     </div>
