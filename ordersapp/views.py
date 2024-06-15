@@ -28,9 +28,9 @@ class OrderCreate(CreateView):
         else:
             basket_items = self.request.user.user_basket.all()
             if basket_items and len(basket_items):
-                # OrderFormSet = inlineformset_factory(
-                #     Order, OrderItem, form=OrderItemForm, extra=len(basket_items)
-                # )
+                OrderFormSet = inlineformset_factory(
+                    Order, OrderItem, form=OrderItemForm, extra=len(basket_items)
+                )
                 formset = OrderFormSet()
                 # for num, form in enumerate(formset.forms):
                 # zip(), filter(), map()
