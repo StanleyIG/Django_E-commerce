@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             {% endif %}
-            <tr class="formset_row">
+            <tr class="formset_row" style="text-align: center;">
                 {% for field in form.visible_fields %}
                 <td class="{% cycle 'td1' 'td2' 'td3' 'td4' %} order formset_td">
                     {% if forloop.first %}
@@ -50,6 +50,11 @@
         </table>
         <input type="submit" value="сохранить" class="btn btn-secondary btn-round form-control last">
     </form>
+    <style>
+        input[type="checkbox"] {
+            text-align: center;
+        }
+    </style>
     {% include 'ordersapp/includes/inc__order_actions.html' %}
 </div>
 {% endblock %}

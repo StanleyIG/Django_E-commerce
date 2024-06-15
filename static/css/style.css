@@ -27,116 +27,116 @@ body {
 
 /* корзина */
 .basket_container {
-    margin: 25px auto;
-    width: 700px;
+	margin: 25px auto;
+	width: 700px;
 }
 
 .basket_list input[type="number"] {
-    width: 3em;
-    position: relative;
-    display: block;
-    float: left;
+	width: 3em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list span.category_name {
-    margin-left: 2em;
-    width: 5em;
-    position: relative;
-    display: block;
-    float: left;
+	margin-left: 2em;
+	width: 5em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list span.product_name {
-    margin-left: 1em;
-    width: 8em;
-    position: relative;
-    display: block;
-    float: left;
+	margin-left: 1em;
+	width: 8em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list span.product_price {
-    margin-left: 1em;
-    width: 7em;
-    position: relative;
-    display: block;
-    float: left;
+	margin-left: 1em;
+	width: 7em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list span.product_cost {
-    margin-left: 1em;
-    width: 7em;
-    position: relative;
-    display: block;
-    float: left;
+	margin-left: 1em;
+	width: 7em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list span.product_quantitiy {
-    margin-left: 1em;
-    width: 5em;
-    position: relative;
-    display: block;
-    float: left;
+	margin-left: 1em;
+	width: 5em;
+	position: relative;
+	display: block;
+	float: left;
 }
 
 .basket_list .basket_record {
-    position: relative;
-    display: block;
-    height: 170px;
-    float: none;
+	position: relative;
+	display: block;
+	height: 170px;
+	float: none;
 }
 
 .basket_list button {
-    margin-left: 45px;
-    width: 150px;
-    display: block;
-    float: left;
+	margin-left: 45px;
+	width: 150px;
+	display: block;
+	float: left;
 }
 
 .basket_list .basket_record button {
-    margin-top: 50px;
-    margin-left: 390px;
-    width: 150px;
-    position: absolute;
-    display: block;
-    float: left;
+	margin-top: 50px;
+	margin-left: 390px;
+	width: 150px;
+	position: absolute;
+	display: block;
+	float: left;
 }
 
 
 .basket_container .head {
-    margin: 25px auto;
+	margin: 25px auto;
 }
 
 .basket_container button {
-    margin-left: 25px;
-    width: 150px;
-    display: block;
-    float: left;
+	margin-left: 25px;
+	width: 150px;
+	display: block;
+	float: left;
 }
 
 .basket_container button a {
-    text-decoration: none;
-    color: #555;
+	text-decoration: none;
+	color: #555;
 }
 
 .basket_container img {
-    display: block;
-    float: left;
-    width: 150px;
-    border-radius: 25px;
+	display: block;
+	float: left;
+	width: 150px;
+	border-radius: 25px;
 }
 
 .basket_container input[type="submit"] {
-    width: 150px;
-    display: block;
-    float: left;
-    margin-bottom: 25px;
+	width: 150px;
+	display: block;
+	float: left;
+	margin-bottom: 25px;
 }
 
 .basket_container .basket_summary {
-    display: block;
-    margin-left: 50px;
-    margin-bottom: 15px;
-    color: #555;
+	display: block;
+	margin-left: 50px;
+	margin-bottom: 15px;
+	color: #555;
 }
 
 /* основные страницы */
@@ -209,8 +209,8 @@ body {
 
 .dropdown-menu li {
 	padding: 10px;
-  }
-  
+}
+
 
 .search {
 	display: block;
@@ -250,8 +250,8 @@ body {
 
 .basket span {
 	display: block;
-    margin-left: 30px;
-    width: 150px;
+	margin-left: 30px;
+	width: 150px;
 }
 
 .clearfix:after {
@@ -1782,7 +1782,7 @@ form img:active {
 }
 
 .slider-control .block a img {
-    width: 70px;
+	width: 70px;
 }
 
 .slider-control a .text {
@@ -1968,175 +1968,176 @@ form img:active {
 } */
 
 .admin_container .menu span {
-    margin-left: 10px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: #111;
+	margin-left: 10px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	color: #111;
 }
 
 .admin_container .h2 {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .admin_menu {
-    display: block;
-    left: 15px;
-    top: 20px;
-    height: 40px;
-    width: 100%;
+	display: block;
+	left: 15px;
+	top: 20px;
+	height: 40px;
+	width: 100%;
 }
 
-.admin_menu ul.menu{
-    display: block;
-    float: none;
-    width: 550px;
-    height: 50px;
-    margin: auto;
-    color: #555;
+.admin_menu ul.menu {
+	display: block;
+	float: none;
+	width: 550px;
+	height: 50px;
+	margin: auto;
+	color: #555;
 }
 
 /* админка-юзеры */
 .users_list {
-    margin-left: 150px;
+	margin-left: 150px;
 }
 
 .users_list a {
-    color: #555;
-    text-decoration: none;
+	color: #555;
+	text-decoration: none;
 }
 
 .users_list .new_user {
-    margin-left: 30px;
+	margin-left: 30px;
 }
 
 .users_list button {
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    height: 30px;
-    margin: 5px auto;
-    padding: 0 15px;
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	height: 30px;
+	margin: 5px auto;
+	padding: 0 15px;
 }
 
 .user_record {
-    height: 125px;
-    margin: 15px auto;
-    position: relative;
+	height: 125px;
+	margin: 15px auto;
+	position: relative;
 }
 
 .user_record.not_active {
-    opacity: 0.5;
+	opacity: 0.5;
 }
 
 .user_record img {
-    display: block;
-    float: left;
-    height: 125px;
-    border-radius: 25px;
+	display: block;
+	float: left;
+	height: 125px;
+	border-radius: 25px;
 }
 
 .user_record .user_name {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 175px;
+	display: block;
+	float: left;
+	margin-top: 15px;
+	margin-left: 25px;
+	width: 175px;
 }
 
 .user_record .user_name a {
-    color: #555;
+	color: #555;
 }
 
 .user_record .user_name p {
-    /*font-weight: bold;*/
-    margin: 10px auto;
+	/*font-weight: bold;*/
+	margin: 10px auto;
 }
 
 .user_record .user_email {
-    display: block;
-    float: left;
-    margin-top: 40px;
-    margin-left: 25px;
-    width: 175px;
+	display: block;
+	float: left;
+	margin-top: 40px;
+	margin-left: 25px;
+	width: 175px;
 }
 
 .user_record .user_age {
-    display: block;
-    float: left;
-    margin-top: 40px;
-    margin-left: 25px;
-    width: 45px;
+	display: block;
+	float: left;
+	margin-top: 40px;
+	margin-left: 25px;
+	width: 45px;
 }
 
 .user_record .user_role {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 125px;
+	display: block;
+	float: left;
+	margin-top: 15px;
+	margin-left: 25px;
+	width: 125px;
 }
 
 .user_record .user_lastlogin {
-    display: block;
-    float: left;
-    margin-top: 40px;
-    margin-left: 25px;
-    width: 175px;
+	display: block;
+	float: left;
+	margin-top: 40px;
+	margin-left: 25px;
+	width: 175px;
 }
 
 
 .login {
-    background: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 25px;
-    overflow: hidden;
-    width: 28em;
-    min-width: 500px;
-    margin: 100px auto;
-       
-    position: relative;
-    display: block;
+	background: #fff;
+	border: 1px solid #eaeaea;
+	border-radius: 25px;
+	overflow: hidden;
+	width: 28em;
+	min-width: 500px;
+	margin: 100px auto;
+
+	position: relative;
+	display: block;
 }
 
 .login .head {
-    margin: 15px auto;
+	margin: 15px auto;
 }
 
 .login .form-control[type="submit"] {
-    margin: 10px auto;
+	margin: 10px auto;
 }
 
 .login button {
-    border: 1px solid #eaeaea;
-    margin-bottom: 10px;
-    text-decoration: none;
-    display: block;
-    width: 100%;
+	border: 1px solid #eaeaea;
+	margin-bottom: 10px;
+	text-decoration: none;
+	display: block;
+	width: 100%;
 }
 
 .login button.last {
-    margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
-.login button a, .login button a:hover {
-    border: 1px solid #eaeaea;
-    color: #555;
-    text-decoration: none;
+.login button a,
+.login button a:hover {
+	border: 1px solid #eaeaea;
+	color: #555;
+	text-decoration: none;
 }
 
 .login form {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .login div.user_avatar {
-    position: fixed;
-    left: 175px;
-    top: 200px;
+	position: fixed;
+	left: 175px;
+	top: 200px;
 }
 
 .user_delete {
-    margin: 50px auto;
-    width: 600px;
-    font-size: 150%;
+	margin: 50px auto;
+	width: 600px;
+	font-size: 150%;
 }
 
 /* .user_delete .btn {
@@ -2148,248 +2149,248 @@ form img:active {
 } */
 
 .user_delete a {
-    color: #111;
-    text-decoration: none;
+	color: #111;
+	text-decoration: none;
 }
 
 /* админка-продукты */
 .products_list {
-    margin-left: 200px;
+	margin-left: 200px;
 }
 
 .products_list .new_product {
-    margin-left: 150px;
+	margin-left: 150px;
 }
 
 .products_list button {
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    height: 30px;
-    margin: 5px auto;
-    width: 135px;
-    padding: 0 15px;
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	height: 30px;
+	margin: 5px auto;
+	width: 135px;
+	padding: 0 15px;
 }
 
 .products_list a {
-    color: #555;
-    text-decoration: none;
+	color: #555;
+	text-decoration: none;
 }
 
 .product_record {
-    height: 125px;
-    margin: 15px auto;
-    position: relative;
+	height: 125px;
+	margin: 15px auto;
+	position: relative;
 }
 
 .product_record.not_active {
-    opacity: 0.5;
+	opacity: 0.5;
 }
 
 .product_record .product_name {
-    display: block;
-    float: left;
-    margin-top: 25px;
-    margin-left: 25px;
-    width: 250px;
-    font-size: 150%;
+	display: block;
+	float: left;
+	margin-top: 25px;
+	margin-left: 25px;
+	width: 250px;
+	font-size: 150%;
 }
 
 .product_record .product_actions {
-    display: block;
-    float: left;
-    margin-top: 0px;
-    margin-left: 25px;
-    width: 135px;
+	display: block;
+	float: left;
+	margin-top: 0px;
+	margin-left: 25px;
+	width: 135px;
 }
 
 .product_record .product_desc {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 350px;
+	display: block;
+	float: left;
+	margin-top: 15px;
+	margin-left: 25px;
+	width: 350px;
 }
 
 .product_record .summary {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 100px;
+	display: block;
+	float: left;
+	margin-top: 15px;
+	margin-left: 25px;
+	width: 100px;
 }
 
 .product_record img {
-    display: block;
-    float: left;
-    height: 125px;
-    width: 125px;
-    border-radius: 25px;
+	display: block;
+	float: left;
+	height: 125px;
+	width: 125px;
+	border-radius: 25px;
 }
 
 .product_read {
-    margin: 0 auto;
-    width: 1000px;
-    height: 600px;
+	margin: 0 auto;
+	width: 1000px;
+	height: 600px;
 }
 
 .product_read img {
-    display: block;
-    float:left;
-    margin-top: 25px;
-    border-radius: 25px;
+	display: block;
+	float: left;
+	margin-top: 25px;
+	border-radius: 25px;
 }
 
 .product_read .product_name {
-    display: block;
-    margin: 0 auto;
-    width: 350px;
+	display: block;
+	margin: 0 auto;
+	width: 350px;
 }
 
 .product_read .summary {
-    display: block;
-    float: left;
-    margin-left: 35px;
-    margin-top: 30px;
-    width: 150px;
+	display: block;
+	float: left;
+	margin-left: 35px;
+	margin-top: 30px;
+	width: 150px;
 }
 
 .product_read .product_desc {
-    display: block;
-    float: left;
-    margin-left: 35px;
-    margin-top: 45px;
-    width: 400px;
+	display: block;
+	float: left;
+	margin-left: 35px;
+	margin-top: 45px;
+	width: 400px;
 }
 
 .product_read strong {
-    font-size: 150%;
-    margin-left: 15px;
+	font-size: 150%;
+	margin-left: 15px;
 }
 
 .product_read button {
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    height: 30px;
-    margin: 0px auto;
-    width: 135px;
-    padding: 0 15px;
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	height: 30px;
+	margin: 0px auto;
+	width: 135px;
+	padding: 0 15px;
 }
 
 .product_read a {
-    color: #555;
-    text-decoration: none;
+	color: #555;
+	text-decoration: none;
 }
 
 .product_delete {
-    margin: 50px auto;
-    width: 600px;
-    font-size: 150%;
+	margin: 50px auto;
+	width: 600px;
+	font-size: 150%;
 }
 
 .product_delete .btn {
-    display: block;
-    float:left;
-    margin: 25px;
-    width: 150px;
-    color: #111;
+	display: block;
+	float: left;
+	margin: 25px;
+	width: 150px;
+	color: #111;
 }
 
 .product_delete a {
-    color: #111;
-    text-decoration: none;
+	color: #111;
+	text-decoration: none;
 }
 
 
 /* админка-категории */
 .categories_list {
-    margin-left: 150px;
+	margin-left: 150px;
 }
 
 .categories_list .new_category {
-    margin-left: 200px;
+	margin-left: 200px;
 }
 
 .categories_list button {
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    height: 30px;
-    margin: 5px auto;
-    padding: 0 15px;
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	height: 30px;
+	margin: 5px auto;
+	padding: 0 15px;
 }
 
 .categories_list a {
-    color: #555;
-    text-decoration: none;
+	color: #555;
+	text-decoration: none;
 }
 
 .category_record {
-    height: 125px;
-    margin: 15px auto;
-    position: relative;
+	height: 125px;
+	margin: 15px auto;
+	position: relative;
 }
 
 .category_record.not_active {
-    opacity: 0.5;
+	opacity: 0.5;
 }
 
 .categories_list .category_name {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 150px;
-    font-size: 150%;
+	display: block;
+	float: left;
+	margin-top: 15px;
+	margin-left: 25px;
+	width: 150px;
+	font-size: 150%;
 }
 
 .category_record .category_actions {
-    display: block;
-    float: left;
-    margin-top: 0px;
-    margin-left: 25px;
-    width: 175px;
+	display: block;
+	float: left;
+	margin-top: 0px;
+	margin-left: 25px;
+	width: 175px;
 }
 
 .category_record .category_desc {
-    display: block;
-    float: left;
-    margin-top: 0px;
-    margin-left: 25px;
-    width: 300px;
+	display: block;
+	float: left;
+	margin-top: 0px;
+	margin-left: 25px;
+	width: 300px;
 }
 
 .new_category_form {
-    margin: 0 auto;
-    width: 600px;
+	margin: 0 auto;
+	width: 600px;
 }
 
 .new_category_form .btn:hover {
-    transition: none;
+	transition: none;
 }
 
 
 /* заказы ordersapp */
 
 .order_container {
-    margin: 25px auto;
-    width: 900px;
+	margin: 25px auto;
+	width: 900px;
 }
 
 .order_container button a {
-    text-decoration: none;
-    color: #555;
+	text-decoration: none;
+	color: #555;
 }
 
 .order_container img {
-    display: block;
-    float: left;
-    width: 150px;
-    border-radius: 25px;
+	display: block;
+	float: left;
+	width: 150px;
+	border-radius: 25px;
 }
 
 .category_delete {
-    margin: 50px auto;
-    width: 600px;
-    font-size: 150%;
+	margin: 50px auto;
+	width: 600px;
+	font-size: 150%;
 }
 
 /* .category_delete .btn {
@@ -2408,31 +2409,31 @@ form img:active {
 
 
 .table.orders_list {
-    min-width: 600px;
+	min-width: 600px;
 }
 
 .td1.orders_list {
-    width: 40px;
+	width: 40px;
 }
 
 .table.order.formset {
-    min-width: 400px;
+	min-width: 400px;
 }
 
 .td1.order.formset_td {
-    /*width: 70%;*/
+	/*width: 70%;*/
 }
 
 .td2.order.formset_td {
-    /*width: 50px;*/
+	/*width: 50px;*/
 }
 
 .td3.order.formset_td {
-    /*width: 50px;*/
-    text-align: center;
+	/*width: 50px;*/
+	text-align: center;
 }
 
 .td4.order.formset_td {
-    /*width: 50px;*/
-    text-align: center;
+	/*width: 50px;*/
+	text-align: center;
 }

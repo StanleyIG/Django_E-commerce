@@ -19,27 +19,22 @@ class OrderCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        basket_items = self.request.user.user_basket.all()
         OrderFormSet = inlineformset_factory(
-            Order, OrderItem, form=OrderItemForm, extra=1
+            Order, OrderItem, form=OrderItemForm, extra=len(basket_items) 
+            if basket_items and len(basket_items) else 1
         )
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, self.request.FILES)
         else:
-            basket_items = self.request.user.user_basket.all()
-            if basket_items and len(basket_items):
-                OrderFormSet = inlineformset_factory(
-                    Order, OrderItem, form=OrderItemForm, extra=len(basket_items)
-                )
-                formset = OrderFormSet()
-                # for num, form in enumerate(formset.forms):
-                # zip(), filter(), map()
-                for form, basket_item in zip(formset.forms, basket_items):
-                    form.initial['product'] = basket_item.product
-                    form.initial['quantity'] = basket_item.quantity
-                    form.initial['price'] = basket_item.product.price
-            else:
-                formset = OrderFormSet()
+            formset = OrderFormSet()
+            # for num, form in enumerate(formset.forms):
+            # zip(), filter(), map()
+            for form, basket_item in zip(formset.forms, basket_items):
+                form.initial['product'] = basket_item.product
+                form.initial['quantity'] = basket_item.quantity
+                form.initial['price'] = basket_item.product.price
 
         data['orderitems'] = formset
         return data
