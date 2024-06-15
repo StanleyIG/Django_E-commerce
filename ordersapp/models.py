@@ -65,12 +65,14 @@ class Order(models.Model):
     
     # переопределяем метод, удаляющий объект
     # def delete(self):
-    #     for item in self.orderitems.select_related():
+    #     print('для ордер')
+    #     for item in self.orderitems.select_related('order'):
     #         item.product.quantity += item.quantity
     #         item.product.save()
-    #
+    
     #     self.is_active = False
     #     self.save()
+    #     super(self.__class__, self).delete()
 
 
 class OrderItem(models.Model):
@@ -87,10 +89,10 @@ class OrderItem(models.Model):
     def product_cost(self):
         return self.product.price * self.quantity
 
-    # def delete(self, using=None, keep_parents=False):
-    #     self.product.quantity += self.quantity
-    #     self.product.save()
-    #     super().delete(using=None, keep_parents=False)
+    def delete(self, using=None, keep_parents=False):
+        self.product.quantity += self.quantity
+        self.product.save()
+        super().delete(using=None, keep_parents=False)
 
     @classmethod
     def get_item(cls, pk):

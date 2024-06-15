@@ -25,10 +25,10 @@ class BasketItem(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     add_datetime = models.DateTimeField(auto_now_add=True)
 
-    # def delete(self, using=None, keep_parents=False):
-    #     self.product.quantity += self.quantity
-    #     self.product.save()
-    #     super().delete(using=None, keep_parents=False)
+    def delete(self, using=None, keep_parents=False):
+        self.product.quantity += self.quantity
+        self.product.save()
+        super().delete(using=None, keep_parents=False)
 
     @classmethod
     def get_item(cls, pk):
