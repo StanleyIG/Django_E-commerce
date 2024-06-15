@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Sum, F, Max
+from django.db.models.expressions import RawSQL
 
 from mainapp.models import Product
 
@@ -42,26 +44,35 @@ class Order(models.Model):
     def is_forming(self):
         return self.status == self.FORMING
 
-    # def get_total_quantity(self):
-    #     items = self.orderitems.all()
-    #     return sum(list(map(lambda x: x.quantity, items)))
-    #
+    @property
+    def total_quantity(self):
+        items = self.orderitems.all()
+        return sum(list(map(lambda x: x.quantity, items)))
+
     # def get_product_type_quantity(self):
     #     items = self.orderitems.all()
     #     return len(items)
-    #
-    # def get_total_cost(self):
+
+    # @property
+    # def total_cost(self):
     #     items = self.orderitems.all()
     #     return sum(list(map(lambda x: x.quantity * x.product.price, items)))
-
-    # переопределяю метод, удаляющий объект
+    @property
+    def total_cost(self):
+        return self.orderitems.annotate(
+            total_item_cost=F('quantity') * F('product__price')
+        ).aggregate(total_cost=Sum('total_item_cost'))['total_cost']
+    
+    # переопределяем метод, удаляющий объект
     # def delete(self):
-    #     for item in self.orderitems.select_related():
+    #     print('для ордер')
+    #     for item in self.orderitems.select_related('order'):
     #         item.product.quantity += item.quantity
     #         item.product.save()
-    #
+    
     #     self.is_active = False
     #     self.save()
+    #     super(self.__class__, self).delete()
 
 
 class OrderItem(models.Model):
@@ -74,7 +85,15 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(verbose_name='количество',
                                            default=0)
 
-    # @property
-    # def product_cost(self):
-    #     return self.product.price * self.quantity
+    @property
+    def product_cost(self):
+        return self.product.price * self.quantity
 
+    def delete(self, using=None, keep_parents=False):
+        self.product.quantity += self.quantity
+        self.product.save()
+        super().delete(using=None, keep_parents=False)
+
+    @classmethod
+    def get_item(cls, pk):
+        return cls.objects.filter(pk=pk).first()

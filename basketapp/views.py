@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.safestring import mark_safe
 from django.db import transaction
+from ordersapp.models import OrderItem
 
 
 @login_required
