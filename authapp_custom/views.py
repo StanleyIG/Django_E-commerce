@@ -43,9 +43,9 @@ class CustomLoginView(LoginView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_anonymous:
-            messages.add_message(request, messages.INFO, mark_safe(
-                'Пожалуйста, войдите в систему, чтобы продолжить'))
+        # if request.user.is_anonymous:
+        #     messages.add_message(request, messages.INFO, mark_safe(
+        #         'Пожалуйста, войдите в систему, чтобы продолжить'))
         return super().get(request, *args, *kwargs)
 
 

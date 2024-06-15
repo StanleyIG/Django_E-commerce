@@ -4,7 +4,7 @@
 
 {% block container %}
     <div class="products_list">
-        <a class="new_product btn btn-default" href="{% url 'my_admin:product_create' category_pk=category.pk %}">новый
+        <a class="new_product btn btn-secondary" href="{% url 'my_admin:product_create' category_pk=category.pk %}">новый
             продукт</a>
 
         {% for object in object_list %}

@@ -13,7 +13,9 @@ class FormControlMixin:
 class OrderForm(FormControlMixin, forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ('user', 'is_active', 'status')
+        fields = '__all__'
+        exclude = ('user',)
+        #exclude = ('user', 'is_active', 'status')
 
 
 class OrderItemForm(FormControlMixin, forms.ModelForm):
