@@ -2392,7 +2392,7 @@ form img:active {
     font-size: 150%;
 }
 
-.category_delete .btn {
+/* .category_delete .btn {
     display: block;
     float:left;
     margin: 25px;
@@ -2403,7 +2403,7 @@ form img:active {
 .category_delete a {
     color: #111;
     text-decoration: none;
-}
+} */
 
 
 
