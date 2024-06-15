@@ -79,7 +79,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     # 'config_shop.middleware.CacheIpAddressMiddleware',
-    #'mainapp.middleware.ExceptionMiddleware',
+    'mainapp.middleware.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config_shop.urls'
