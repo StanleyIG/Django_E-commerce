@@ -61,6 +61,7 @@ window.onload = function () {
     $orderForm.on('change', 'input[type="number"]', function (event) {
         orderitemNum = parseInt(event.target.name.replace('orderitems-', '').replace(
             '-quantity', ''));
+        console.log(orderitemNum)
         if (priceArr[orderitemNum]) {
             orderitemQuantity = parseInt(event.target.value);
             deltaQuantity = orderitemQuantity - quantityArr[orderitemNum];

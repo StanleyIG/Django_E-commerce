@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Sum, F, Max
+from django.db.models.expressions import RawSQL
 
 from mainapp.models import Product
 
@@ -51,11 +53,16 @@ class Order(models.Model):
     #     items = self.orderitems.all()
     #     return len(items)
 
+    # @property
+    # def total_cost(self):
+    #     items = self.orderitems.all()
+    #     return sum(list(map(lambda x: x.quantity * x.product.price, items)))
     @property
     def total_cost(self):
-        items = self.orderitems.all()
-        return sum(list(map(lambda x: x.quantity * x.product.price, items)))
-
+        return self.orderitems.annotate(
+            total_item_cost=F('quantity') * F('product__price')
+        ).aggregate(total_cost=Sum('total_item_cost'))['total_cost']
+    
     # переопределяем метод, удаляющий объект
     # def delete(self):
     #     for item in self.orderitems.select_related():
