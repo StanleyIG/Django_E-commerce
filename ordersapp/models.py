@@ -94,18 +94,7 @@ class Order(models.Model):
     #     super(self.__class__, self).delete()
 
 
-# class OrderItemQuerySet(models.QuerySet):
-
-#     def delete(self, *args, **kwargs):
-#         print('QerySet del сработал')
-#         for object in self:
-#             object.product.quantity += object.quantity
-#             object.product.save()
-#         super(OrderItemQuerySet, self).delete(*args,  **kwargs)
-
-
 class OrderItem(models.Model):
-    # objects = OrderItemQuerySet.as_manager()
 
     order = models.ForeignKey(Order,
                               related_name="orderitems",
@@ -119,21 +108,21 @@ class OrderItem(models.Model):
     @property
     def product_cost(self):
         return self.product.price * self.quantity
-    
-    def save(self, *args, **kwargs):
-        if self.pk:
-            self.product.quantity -= self.quantity - \
-                self.__class__.get_item(self.pk).quantity
-        else:
-            print('else', self.quantity)
-            if self.order.user.user_basket.exists():
-                print('енсть корзина')
-                pass
-            else:
-                self.product.quantity -= self.quantity
 
-        self.product.save()
-        super(self.__class__, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.pk:
+    #         self.product.quantity -= self.quantity - \
+    #             self.__class__.get_item(self.pk).quantity
+    #     else:
+    #         print('else', self.quantity)
+    #         if self.order.user.user_basket.exists():
+    #             print('енсть корзина')
+    #             pass
+    #         else:
+    #             self.product.quantity -= self.quantity
+
+    #     self.product.save()
+    #     super(self.__class__, self).save(*args, **kwargs)
 
     # def save(self, *args, **kwargs):
     #     if self.pk:
@@ -151,12 +140,11 @@ class OrderItem(models.Model):
     #         self.product.quantity -= self.quantity - \
     #             self.__class__.get_item(self.pk).quantity
     #     else:
-    #         if self.order.orderitems.exists():
-    #             self.product.quantity -= self.quantity
-    #         else:
-    #             self.product.quantity -= self.quantity
+    #         print('else')
+    #         self.product.quantity -= self.quantity
+
     #     self.product.save()
-    #     super(self.__class__, self).save(*args, *kwargs)
+    #     super(self.__class__, self).save(*args, **kwargs)
 
     # def delete(self, using=None, keep_parents=False):
     #     print('delete orderitem')

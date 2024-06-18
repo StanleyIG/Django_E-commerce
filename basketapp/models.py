@@ -5,6 +5,10 @@ from mainapp.models import Product
 
 
 # class BasketQuerySet(models.QuerySet):
+#     """
+#     При срабатывании запроса на удаление корзины self.request.user.user_basket.all().delete()
+#     в контроллере OrderCreate будет вызван переопределённый метод delete у QuerySet.
+#     """
 #     def delete(self):
 #         for object in self:
 #             object.product.quantity += object.quantity
@@ -30,15 +34,15 @@ class BasketItem(models.Model):
     #     self.product.save()
     #     super().delete(using=None, keep_parents=False)
 
-    def save(self, *args, **kwargs):
-        if self.pk:
-            self.product.quantity -= self.quantity - \
-                self.__class__.get_item(self.pk).quantity
-        else:
-            self.product.quantity -= self.quantity
+    # def save(self, *args, **kwargs):
+    #     if self.pk:
+    #         self.product.quantity -= self.quantity - \
+    #             self.__class__.get_item(self.pk).quantity
+    #     else:
+    #         self.product.quantity -= self.quantity
 
-        self.product.save()
-        super(self.__class__, self).save(*args, **kwargs)
+    #     self.product.save()
+    #     super(self.__class__, self).save(*args, **kwargs)
 
     @classmethod
     def get_item(cls, pk):
