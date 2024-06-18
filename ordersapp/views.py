@@ -36,6 +36,7 @@ class OrderCreate(CreateView):
                 form.initial['quantity'] = basket_item.quantity
                 form.initial['price'] = basket_item.product.price
 
+
         data['orderitems'] = formset
         return data
 
@@ -50,7 +51,10 @@ class OrderCreate(CreateView):
             if orderitems.is_valid():
                 orderitems.instance = self.object  # one to many
                 orderitems.save()
-            self.request.user.user_basket.all().delete()  # применяется к набору запросов
+                # orderitems.save(view='order_create')
+            # Очень важно !!!
+            # В данном коде метод delete() не метод класса Model! Он принадлежит QuerySet'у, который возвращает метод all().
+            self.request.user.user_basket.all().delete()  # применяется к QuerySet
 
         # удаляем пустой заказ
         # if self.object.get_total_cost() == 0:
@@ -79,6 +83,11 @@ class OrderUpdate(UpdateView):
             for form in formset.forms:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
+
+            # order_items = self.object.orderitems.select_related('order').prefetch_related('product')
+            # print(order_items)
+            # print(order_items.products.name)
+
         data['orderitems'] = formset
         return data
 

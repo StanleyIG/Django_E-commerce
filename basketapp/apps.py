@@ -5,5 +5,5 @@ class BasketappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'basketapp'
 
-    # def ready(self):
-    #     import basketapp.signals
+    def ready(self):
+        import basketapp.signals
