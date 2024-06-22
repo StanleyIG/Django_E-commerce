@@ -1,4 +1,5 @@
 import random
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
@@ -39,12 +40,13 @@ def related_products(product):
 
 
 class MaininAppView(TemplateView):
-    template_name ='mainapp/index.html'
+    template_name = 'mainapp/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'главная'
         return context
+
 
 class ProductListView(TemplateView):
     template_name = 'mainapp/products.html'
@@ -57,8 +59,9 @@ class ProductListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'каталог'
-        context['hot_product'] = self.hot_product # hot_product
-        context['related_products'] = self._related_products # _related_products
+        context['hot_product'] = self.hot_product  # hot_product
+        # _related_products
+        context['related_products'] = self._related_products
         return context
 
 
@@ -87,8 +90,9 @@ class CatalogView(ListView):
             products = Product.objects.all().prefetch_related('category')
         else:
             category = get_object_or_404(ProductCategory, pk=category_pk)
-            products = Product.objects.filter(category=category).prefetch_related('category')
-            
+            products = Product.objects.filter(
+                category=category).prefetch_related('category')
+
         paginator = Paginator(products, self.paginate_by)
         page_number = self.request.GET.get('page', 1)
         page_obj = paginator.get_page(page_number)
@@ -113,3 +117,8 @@ class ContactView(TemplateView):
             'locations': locations,
         })
         return context
+
+
+def product_price(request, pk):
+    product = Product.objects.filter(pk=int(pk)).first()
+    return JsonResponse({'price': product and product.price or 0})

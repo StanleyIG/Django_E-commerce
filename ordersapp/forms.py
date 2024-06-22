@@ -1,5 +1,6 @@
 from django import forms
 
+from mainapp.models import Product
 from ordersapp.models import Order, OrderItem
 
 
@@ -20,6 +21,13 @@ class OrderForm(FormControlMixin, forms.ModelForm):
 
 class OrderItemForm(FormControlMixin, forms.ModelForm):
     price = forms.CharField(label='цена', required=False)
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # оптимизация запроса на получение имен категорий, теперь в 
+        # сете запросов для каждой формы не будут дублироваться запросы на получение имен категорий для каждой формы
+        self.fields['product'].queryset = Product.get_items()
 
     class Meta:
         model = OrderItem
