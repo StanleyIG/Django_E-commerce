@@ -33,11 +33,26 @@ function deleteOrderItem(row) {
     let targetName = row[0].querySelector('input[type="number"]').name;
     orderitemNum = parseInt(targetName.replace('orderitems-', '').replace('-quantity', ''));
     deltaQuantity = -quantityArr[orderitemNum];
-    orderSummaryUpdate(priceArr[orderitemNum], deltaQuantity);
+    quantityArr[orderitemNum] = 0;
+    if (!isNaN(priceArr[orderitemNum]) && !isNaN(deltaQuantity)) {
+        orderSummaryUpdate(priceArr[orderitemNum], deltaQuantity);
+    }
 }
 
 function updateTotalQuantity() {
     for (let i = 0; i < totalForms; i++) {
+        orderTotalQuantity += quantityArr[i];
+        orderTotalCost += quantityArr[i] * priceArr[i];
+    }
+    $orderTotalQuantityDOM.html(orderTotalQuantity.toString());
+    $('.order_total_cost').html(Number(orderTotalCost.toFixed(2)).toString());
+}
+
+function orderSummaryRecalc() {
+    orderTotalQuantity = 0;
+    orderTotalCost = 0;
+
+    for (var i = 0; i < totalForms; i++) {
         orderTotalQuantity += quantityArr[i];
         orderTotalCost += quantityArr[i] * priceArr[i];
     }
@@ -61,7 +76,6 @@ window.onload = function () {
     $orderForm.on('change', 'input[type="number"]', function (event) {
         orderitemNum = parseInt(event.target.name.replace('orderitems-', '').replace(
             '-quantity', ''));
-        console.log(orderitemNum)
         if (priceArr[orderitemNum]) {
             orderitemQuantity = parseInt(event.target.value);
             deltaQuantity = orderitemQuantity - quantityArr[orderitemNum];
@@ -91,5 +105,36 @@ window.onload = function () {
     //     let target = event.target;
     //     console.log(target);
     // });
+    $('.order_form select').change(function (event) {
+        let target = event.target;
+        let orderitemNum = parseInt(target.name.replace('orderitems-', '').replace(
+            '-product', ''));
+        let orderitemProductPk = target.options[target.selectedIndex].value;
+
+        if (orderitemProductPk) {
+            $.ajax({
+                url: "/product/" + orderitemProductPk + "/price/",
+                success: function (data) {
+                    if (data.price) {
+                        priceArr[orderitemNum] = parseFloat(data.price);
+                        if (isNaN(quantityArr[orderitemNum])) {
+                            quantityArr[orderitemNum] = 0;
+                        }
+                        let priceHtml = '<span>' +
+                            data.price.toString().replace('.', ',') +
+                            '</span> руб';
+                        let currentTr = $('.order_form table').find('tr:eq(' + (orderitemNum + 1) + ')');
+
+                        currentTr.find('td:eq(2)').html(priceHtml);
+
+                        if (isNaN(currentTr.find('input[type="number"]').val())) {
+                            currentTr.find('input[type="number"]').val(0);
+                        }
+                        orderSummaryRecalc();
+                    }
+                },
+            });
+        }
+    });
 
 };

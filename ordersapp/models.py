@@ -23,7 +23,7 @@ class Order(models.Model):
         (CANCEL, 'отменен'),
     )
 
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='user_order')
     created = models.DateTimeField(verbose_name='создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='обновлен', auto_now=True)
     status = models.CharField(verbose_name='статус',
@@ -43,6 +43,10 @@ class Order(models.Model):
     @property
     def is_forming(self):
         return self.status == self.FORMING
+    
+    # @property
+    # def total_quantity(self):
+    #     return self.orderitems.aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
 
     @property
     def total_quantity(self):

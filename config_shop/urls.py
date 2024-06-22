@@ -23,10 +23,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", RedirectView.as_view(url="mainapp/")),
+    # path("", RedirectView.as_view(url="mainapp/")),
+    path('', include('mainapp.urls', namespace='main')),
     path("auth/", include("authapp_custom.urls", namespace="auth")),
     path("social_auth/", include("social_django.urls", namespace="social")),
-    path('mainapp/', include('mainapp.urls', namespace='mainapp')),
+    # path('mainapp/', include('mainapp.urls', namespace='mainapp')),
     path('basket/', include('basketapp.urls', namespace='basket')),
     path('orders/', include('ordersapp.urls', namespace='orders')),
     path('my/admin/', include('adminapp.urls', namespace='my_admin')),
